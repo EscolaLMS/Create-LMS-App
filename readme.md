@@ -5,8 +5,8 @@
 Assuming
 
 - you're on MacOS or Linux
-- you have node.js installed
-- you have docker & docker-composer install
+- you have `node.js` installed
+- you have `docker` & `docker-composer` installed
 
 in order to launch LMS
 
