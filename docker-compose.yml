@@ -1,0 +1,27 @@
+version: "3.5"
+services:
+  php:
+    image: escolalms/php:8-work
+    volumes:
+      - ./api:/var/www/html:cached
+  front:
+    image: nginx
+    ports:
+      - 8001:80
+    volumes:
+      - ./src:/usr/share/nginx/html
+
+  admin:
+    image: nginx
+    ports:
+      - 8001:80
+    volumes:
+      - ./admin/dist:/usr/share/nginx/html
+
+  front:
+    image: nginx
+    ports:
+      - 8002:80
+    volumes:
+      - ./front/build:/usr/share/nginx/html
+
