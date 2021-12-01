@@ -55,7 +55,7 @@ create_front()
     else 
         cd front 
         npm i 
-        REACT_APP_PUBLIC_API_URL=http://localhost:1000 node_modules/.bin/react-app-rewired build
+        REACT_APP_ROUTING_TYPE=BrowserRouter REACT_APP_PUBLIC_API_URL=http://localhost:1000 node_modules/.bin/react-app-rewired build
         cd ..
     fi
     
