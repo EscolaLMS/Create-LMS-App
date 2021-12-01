@@ -7,10 +7,23 @@ Assuming
 - you're on MacOS or Linux
 - you have `node.js` installed
 - you have `docker` & `docker-composer` installed
+- ports 1000,8001,8002 are free
+
+You have the following options
+
+### Installation from script
+
+Run `npx --package=@escolalms/cla pull_init`
+
+### Installation from source
+
+Clone this repository then,
 
 in order to launch LMS
 
 run `./init.sh` shell script
+
+## First steps
 
 Once everything is installed (takes a while)
 
