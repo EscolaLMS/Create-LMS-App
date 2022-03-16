@@ -7,10 +7,11 @@ create_api()
     FILE=api/composer.json
     if [ -f "$FILE" ]; then
         echo "$FILE exists. Skiping installation of API "
-    else 
+    else
+        docker-compose exec php bash -c "composer self-update"
         docker-compose exec php bash -c "composer create-project escolalms/api ."
-        cd api 
-        make init 
+        cd api
+        make init
         docker-compose exec escola_lms_app bash -c "php artisan h5p:storage-link"
         cd ..
     fi

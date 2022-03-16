@@ -4,12 +4,6 @@ services:
     image: escolalms/php:8-work
     volumes:
       - ./api:/var/www/html:cached
-  front:
-    image: nginx
-    ports:
-      - 8001:80
-    volumes:
-      - ./src:/usr/share/nginx/html
 
   admin:
     image: nginx
