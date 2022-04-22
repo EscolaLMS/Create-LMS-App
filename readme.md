@@ -7,7 +7,6 @@ Development version
 Assuming
 
 - you're on MacOS or Linux
-- you have `node.js` installed
 - you have `docker` & `docker-composer` installed
 - ports 80,1000,3000 are free
 

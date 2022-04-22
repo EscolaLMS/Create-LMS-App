@@ -4,5 +4,4 @@ cd EscolaLMS
 #rm -rf .git
 #./init.sh
 make init 
-make content-seeder
 make success
