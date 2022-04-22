@@ -20,7 +20,7 @@
     "url": "https://github.com/EscolaLMS/Create-LMS-App/issues"
   },
   "bin": {
-    "pull_init": "pull_init.sh"
+    "lms": "pull_init.sh"
   },
   "homepage": "https://github.com/EscolaLMS/Create-LMS-App#readme"
 }
