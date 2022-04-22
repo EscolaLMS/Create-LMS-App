@@ -47,5 +47,5 @@ success:
 	- @echo "All productions changes must be set in .env file"
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
 	
-init: docker-up dumpautoload generate-new-keys migrate permissions-seeder storage-links restart content-seeder success 
+init: docker-up dumpautoload generate-new-keys migrate permissions-seeder storage-links content-seeder restart success 
 
