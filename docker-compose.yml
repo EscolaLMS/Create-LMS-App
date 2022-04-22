@@ -1,21 +1,65 @@
-version: "3.5"
+version: "3.7"
+
+networks:
+  escola_lms:
+    name: escola_lms
+    driver: bridge
 services:
-  php:
-    image: escolalms/php:8-work
-    volumes:
-      - ./api:/var/www/html:cached
-
   admin:
-    image: nginx
+    image: escolalms/admin
     ports:
-      - 8001:80
+      - "3000:80"
+    environment:
+      - API_URL=http://localhost:1000
+  api:
+    image: escolalms/api:0.2.8
+    ports:
+      - "1000:80"
+    networks:
+      - escola_lms
     volumes:
-      - ./admin/dist:/usr/share/nginx/html
+      - ./docker/supervisor/horizon.conf:/etc/supervisor/custom.d/horizon.conf
+      - ./docker/supervisor/scheduler.conf:/etc/supervisor/custom.d/scheduler.conf
+      - ./storage:/var/www/html/storage
+      - type: bind
+        source: ./.env
+        target: /var/www/html/.env
+  postgres:
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    networks:
+      - escola_lms
+    volumes:
+      - ./docker/postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=default
+      - POSTGRES_USER=default
+      - POSTGRES_PASSWORD=secret
+      - TZ=Europe/Warsaw
 
-  front:
-    image: nginx
+  redis:
+    networks:
+      - escola_lms
+    image: "redis"
+    command: redis-server --requirepass escola_lms
     ports:
-      - 8002:80
-    volumes:
-      - ./front/build:/usr/share/nginx/html
+      - "6379:6379"
+
+  adminer:
+    networks:
+      - escola_lms
+    image: adminer
+    ports:
+      - 8078:8080
+
+  mailhog:
+    networks:
+      - escola_lms
+    image: mailhog/mailhog
+    logging:
+      driver: "none" # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
 

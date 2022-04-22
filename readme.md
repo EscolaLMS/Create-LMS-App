@@ -1,5 +1,7 @@
 # Create LMS APP
 
+Development version
+
 ## Installation
 
 Assuming
@@ -7,13 +9,13 @@ Assuming
 - you're on MacOS or Linux
 - you have `node.js` installed
 - you have `docker` & `docker-composer` installed
-- ports 1000,8001,8002 are free
+- ports 80,1000,3000 are free
 
 You have the following options
 
 ### Installation from script
 
-Run `npx --package=@escolalms/cla pull_init`
+Run `npx --package=@escolalms/cla lms`
 
 ### Installation from source
 
@@ -21,15 +23,15 @@ Clone this repository then,
 
 in order to launch LMS
 
-run `./init.sh` shell script
+run `make init` shell script
 
 ## First steps
 
 Once everything is installed (takes a while)
 
 - http://localhost:1000/api/documentation API Swagger documentation
-- http://localhost:8001 admin panel credentials username: admin@escola-lms.com password: secret
-- http://localhost:8002 demo panel credentials username: student@escola-lms.com password: secret
+- http://localhost:3000 admin panel credentials username: admin@escola-lms.com password: secret
+- http://localhost demo panel credentials username: student@escola-lms.com password: secret
 
 ## Troubleshooting
 

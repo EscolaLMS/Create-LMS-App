@@ -1,3 +1,3 @@
-api
-admin 
-front
+docker
+/storage/*.key
+/storage/api-docs
