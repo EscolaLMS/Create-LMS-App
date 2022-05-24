@@ -5,6 +5,12 @@ networks:
     name: escola_lms
     driver: bridge
 services:
+  app:
+    image: escolalms/demo:0.0.7
+    ports:
+      - "80:80"
+    environment:
+      - API_URL=http://localhost:1000
   admin:
     image: escolalms/admin
     ports:
