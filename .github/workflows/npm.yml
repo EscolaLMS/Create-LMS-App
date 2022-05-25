@@ -15,8 +15,6 @@ jobs:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
       - run: git config --global user.email "github@escolalms.com" &&   git config --global user.name "Github"
-      - run: npm i
-      - run: npm run lib
       - run: npm version ${{github.ref_name}}
       - run: npm publish --access public
         env:
