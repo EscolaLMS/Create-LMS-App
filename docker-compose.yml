@@ -6,7 +6,7 @@ networks:
     driver: bridge
 services:
   app:
-    image: escolalms/demo:0.0.7
+    image: escolalms/demo:0.0.8
     ports:
       - "80:80"
     environment:
