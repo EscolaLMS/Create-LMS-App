@@ -36,3 +36,7 @@ Once everything is installed (takes a while)
 
 - please create issue in this repository
 - Windows users - this package is not tested on your system.
+
+## Custom domains
+
+- Amends [Caddyfile](Caddyfile) referring to the [official documentation](https://caddyserver.com/docs/caddyfile)
