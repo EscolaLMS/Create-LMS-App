@@ -1,0 +1,15 @@
+
+http://admin.wellms.localhost  {
+	reverse_proxy admin:80
+}
+
+http://app.wellms.localhost  {
+	reverse_proxy app:80
+}
+
+http://api.wellms.localhost  {
+	reverse_proxy api:80
+}
+
+
+

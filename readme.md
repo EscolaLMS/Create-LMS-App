@@ -8,7 +8,7 @@ Assuming
 
 - you're on MacOS or Linux
 - you have `docker` & `docker-composer` installed
-- ports 80,1000,3000 are free
+- port 80 is free
 
 You have the following options
 
@@ -28,9 +28,9 @@ run `make init` shell script
 
 Once everything is installed (takes a while)
 
-- http://localhost:1000/api/documentation API Swagger documentation
-- http://localhost:3000 admin panel credentials username: admin@escola-lms.com password: secret
-- http://localhost demo panel credentials username: student@escola-lms.com password: secret
+- http://api.wellms.localhost/api/documentation API Swagger documentation
+- http://admin.wellms.localhost admin panel credentials username: admin@escola-lms.com password: secret
+- http://app.wellms.localhost demo panel credentials username: student@escola-lms.com password: secret
 
 ## Troubleshooting
 

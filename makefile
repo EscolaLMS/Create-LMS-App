@@ -38,14 +38,15 @@ storage-links:
 
 success: 
 	- @echo "Wellms is installed succesfully"
-	- @echo "Admin panel http://localhost:3000"
-	- @echo "Demo http://localhost"
-	- @echo "API REST http://localhost:1000/api/documentation"
+	- @echo "Admin panel http://admin.wellms.localhost"
+	- @echo "Demo http://demo.wellms.localhost"
+	- @echo "API REST http://api.wellms.localhost/api/documentation"
 	- @echo "Credentials for admin are username: admin@escola-lms.com password: secret"
 	- @echo "Credentials for student are username: student@escola-lms.com password: secret"
 	- @echo "Emails are not sent. See http://localhost:8025/ mailhog to details"
 	- @echo "All productions changes must be set in .env file"
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
+	- @echo "if you need to attach your domain just change CaddyFiles"
 	
 init: docker-up dumpautoload generate-new-keys migrate generate-new-keys permissions-seeder storage-links content-seeder restart success 
 

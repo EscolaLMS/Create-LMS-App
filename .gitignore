@@ -1,3 +1,4 @@
 docker
 /storage/*.key
 /storage/api-docs
+caddy/
