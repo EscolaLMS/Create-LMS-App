@@ -1,1 +1,0 @@
-{"buildTargets":["bash","content-seeder","docker-down","docker-up","dumpautoload","generate-new-keys","h5p-seed","init","migrate","permissions-seeder","restart","storage-links","success"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}
