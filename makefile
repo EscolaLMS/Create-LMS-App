@@ -39,7 +39,7 @@ storage-links:
 success: 
 	- @echo "Wellms is installed succesfully"
 	- @echo "Admin panel http://admin.wellms.localhost"
-	- @echo "Demo http://demo.wellms.localhost"
+	- @echo "Demo http://app.wellms.localhost"
 	- @echo "API REST http://api.wellms.localhost/api/documentation"
 	- @echo "Credentials for admin are username: admin@escola-lms.com password: secret"
 	- @echo "Credentials for student are username: student@escola-lms.com password: secret"
