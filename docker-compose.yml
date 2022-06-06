@@ -5,22 +5,35 @@ networks:
     name: escola_lms
     driver: bridge
 services:
+
+  proxy:
+    image: caddy
+    volumes: 
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/certs:/etc/caddy/certs
+      - ./caddy/data:/data
+      - ./caddy/config:/config
+    networks: 
+      - escola_lms
+    ports: 
+      - "80:80"      
+      - "443:443"      
+
+
   app:
     image: escolalms/demo:0.0.8
-    ports:
-      - "80:80"
     environment:
-      - API_URL=http://localhost:1000
+      - API_URL=http://api.wellms.localhost
+    networks:
+      - escola_lms
   admin:
     image: escolalms/admin
-    ports:
-      - "3000:80"
     environment:
-      - API_URL=http://localhost:1000
+      - API_URL=http://api.wellms.localhost
+    networks:
+      - escola_lms
   api:
     image: escolalms/api:0.2.8
-    ports:
-      - "1000:80"
     networks:
       - escola_lms
     volumes:
@@ -32,8 +45,6 @@ services:
         target: /var/www/html/.env
   postgres:
     image: postgres:12
-    ports:
-      - "5432:5432"
     networks:
       - escola_lms
     volumes:
@@ -49,8 +60,6 @@ services:
       - escola_lms
     image: "redis"
     command: redis-server --requirepass escola_lms
-    ports:
-      - "6379:6379"
 
   adminer:
     networks:
@@ -66,6 +75,6 @@ services:
     logging:
       driver: "none" # disable saving logs
     ports:
-      - 1025:1025 # smtp server
+#      - 1025:1025 # smtp server
       - 8025:8025 # web ui
 
