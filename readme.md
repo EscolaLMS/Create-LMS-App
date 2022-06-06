@@ -9,6 +9,7 @@ Assuming
 - you're on MacOS or Linux
 - you have `docker` & `docker-composer` installed
 - port 80 is free
+- port 8025 is free
 
 You have the following options
 
