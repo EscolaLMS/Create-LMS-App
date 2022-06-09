@@ -61,12 +61,12 @@ services:
     image: "redis"
     command: redis-server --requirepass escola_lms
 
-  adminer:
-    networks:
-      - escola_lms
-    image: adminer
-    ports:
-      - 8078:8080
+#  adminer:
+#    networks:
+#      - escola_lms
+#    image: adminer
+#    ports:
+#      - 8078:8080
 
   mailhog:
     networks:

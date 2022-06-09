@@ -54,7 +54,7 @@ success:
 	- @echo "API REST http://api.wellms.localhost/api/documentation"
 	- @echo "Credentials for admin are username: admin@escola-lms.com password: secret"
 	- @echo "Credentials for student are username: student@escola-lms.com password: secret"
-	- @echo "Emails are not sent. See http://mailhog.wellms.localhost mailhog to details"
+	- @echo "Emails are not sent. See http://mailhog.wellms.localhost mailhog for details"
 	- @echo "All productions changes must be set in .env file"
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
 	- @echo "if you need to attach your domain just change CaddyFiles"
