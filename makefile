@@ -45,7 +45,7 @@ h5p-seed:
 
 storage-links:
 	- docker-compose exec -u 1000 api bash -c "php artisan storage:link --force --no-interaction"
-	- docker-compose exec -u 1000 api bash -c "php artisan h5p:storage-link --force --no-interaction"
+	- docker-compose exec -u 1000 api bash -c "php artisan h5p:storage-link"
 
 success: 
 	- @echo "Wellms is installed succesfully"
