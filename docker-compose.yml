@@ -21,19 +21,19 @@ services:
 
 
   app:
-    image: escolalms/demo:0.0.8
+    image: escolalms/demo:latest
     environment:
       - API_URL=http://api.wellms.localhost
     networks:
       - escola_lms
   admin:
-    image: escolalms/admin
+    image: escolalms/admin:latest
     environment:
       - API_URL=http://api.wellms.localhost
     networks:
       - escola_lms
   api:
-    image: escolalms/api:0.2.8
+    image: escolalms/api:latest
     networks:
       - escola_lms
     volumes:

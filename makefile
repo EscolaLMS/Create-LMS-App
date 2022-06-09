@@ -18,11 +18,22 @@ permissions-seeder:
 content-seeder: 
 	- docker-compose exec -u 1000 api bash -c "php artisan db:seed"
 
+content-rich-seeder: 
+	- docker-compose exec -u 1000 api bash -c "php artisan db:seed --class=FullDatabaseSeeder"
+
 docker-up:
 	- docker-compose up -d	
 
+docker-up-force:
+	- docker-compose up -d	--force-recreate
+
 docker-down:	
 	- docker-compose stop
+
+docker-pull:	
+	- docker-compose pull
+
+docker-update: docker-pull docker-up-force dumpautoload storage-links
 
 restart: 
 	- docker-compose stop && docker-compose up -d	
@@ -48,5 +59,5 @@ success:
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
 	- @echo "if you need to attach your domain just change CaddyFiles"
 	
-init: docker-up dumpautoload generate-new-keys migrate generate-new-keys permissions-seeder storage-links content-seeder restart success 
+init: docker-up dumpautoload generate-new-keys migrate generate-new-keys permissions-seeder storage-links content-rich-seeder restart success 
 
