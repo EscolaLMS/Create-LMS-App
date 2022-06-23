@@ -2,24 +2,24 @@ bash:
 	- docker-compose exec -u 1000 api bash
 
 dumpautoload: 
-	- docker-compose exec -u 1000 api bash -c "composer dumpautoload"
+	- docker-compose exec -T -u 1000 api bash -c "composer dumpautoload"
 
 generate-new-keys:
-	- docker-compose exec -u 1000 api bash -c "php artisan key:generate --force --no-interaction"
-	- docker-compose exec -u 1000 api bash -c "php artisan passport:keys --force --no-interaction"
-	- docker-compose exec -u 1000 api bash -c "php artisan passport:client --personal --no-interaction"
+	- docker-compose exec -T -u 1000 api bash -c "php artisan key:generate --force --no-interaction"
+	- docker-compose exec -T -u 1000 api bash -c "php artisan passport:keys --force --no-interaction"
+	- docker-compose exec -T -u 1000 api bash -c "php artisan passport:client --personal --no-interaction"
 
 migrate: 
-	- docker-compose exec -u 1000 api bash -c "php artisan migrate --force --no-interaction"
+	- docker-compose exec -T -u 1000 api bash -c "php artisan migrate --force --no-interaction"
 
 permissions-seeder: 
-	- docker-compose exec -u 1000 api bash -c "php artisan db:seed --class=PermissionsSeeder --force --no-interaction"
+	- docker-compose exec -T -u 1000 api bash -c "php artisan db:seed --class=PermissionsSeeder --force --no-interaction"
 
 content-seeder: 
-	- docker-compose exec -u 1000 api bash -c "php artisan db:seed --force --no-interaction"
+	- docker-compose exec -T -u 1000 api bash -c "php artisan db:seed --force --no-interaction"
 
 content-rich-seeder: 
-	- docker-compose exec -u 1000 api bash -c "php artisan db:seed --class=FullDatabaseSeeder --force --no-interaction"
+	- docker-compose exec -T -u 1000 api bash -c "php artisan db:seed --class=FullDatabaseSeeder --force --no-interaction"
 
 docker-up:
 	- docker-compose up -d	
@@ -39,13 +39,13 @@ restart:
 	- docker-compose stop && docker-compose up -d	
 
 h5p-seed:
-	- docker-compose exec -u 1000 api bash -c "php artisan db:seed --class=H5PLibrarySeeder --force --no-interaction"
-	- docker-compose exec -u 1000 api bash -c "php artisan db:seed --class=H5PContentSeeder --force --no-interaction"
-	- docker-compose exec -u 1000 api bash -c "php artisan db:seed --class=H5PContentCoursesSeeder --force --no-interaction"
+	- docker-compose exec -T -u 1000 api bash -c "php artisan db:seed --class=H5PLibrarySeeder --force --no-interaction"
+	- docker-compose exec -T -u 1000 api bash -c "php artisan db:seed --class=H5PContentSeeder --force --no-interaction"
+	- docker-compose exec -T -u 1000 api bash -c "php artisan db:seed --class=H5PContentCoursesSeeder --force --no-interaction"
 
 storage-links:
-	- docker-compose exec -u 1000 api bash -c "php artisan storage:link --force --no-interaction"
-	- docker-compose exec -u 1000 api bash -c "php artisan h5p:storage-link"
+	- docker-compose exec -T -u 1000 api bash -c "php artisan storage:link --force --no-interaction"
+	- docker-compose exec -T -u 1000 api bash -c "php artisan h5p:storage-link"
 
 success: 
 	- @echo "Wellms is installed succesfully"
