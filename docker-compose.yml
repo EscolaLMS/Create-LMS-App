@@ -37,12 +37,34 @@ services:
     networks:
       - escola_lms
     volumes:
-#      - ./docker/supervisor/horizon.conf:/etc/supervisor/custom.d/horizon.conf
-#      - ./docker/supervisor/scheduler.conf:/etc/supervisor/custom.d/scheduler.conf
+#      - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
+#      - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
+#      - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
       - ./storage:/var/www/html/storage
-      - type: bind
-        source: ./.env
-        target: /var/www/html/.env
+      - ./.env:/var/www/html/.env
+
+#   horizon:
+#     image: escolalms/api:latest
+#     networks:
+#       - escola_lms
+#     volumes:
+# #     - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
+#      - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
+#      - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
+#       - ./storage:/var/www/html/storage
+#       - ./.env:/var/www/html/.env
+        
+#   scheduler:
+#     image: escolalms/api:latest
+#     networks:
+#       - escola_lms
+#     volumes:
+# #     - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
+#      - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
+# #     - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
+#       - ./storage:/var/www/html/storage
+#       - ./.env:/var/www/html/.env      
+
   postgres:
     image: postgres:12
     networks:
