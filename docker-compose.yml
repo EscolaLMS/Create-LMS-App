@@ -19,19 +19,22 @@ services:
       - "80:80"      
       - "443:443"      
 
-
   app:
     image: escolalms/demo:latest
     environment:
       - API_URL=http://api.wellms.localhost
     networks:
       - escola_lms
+
   admin:
     image: escolalms/admin:latest
     environment:
       - API_URL=http://api.wellms.localhost
     networks:
       - escola_lms
+
+# NOTE binding emptyfile.conf disable supervisor service
+
   api:
     image: escolalms/api:latest
     networks:
@@ -49,19 +52,19 @@ services:
 #       - escola_lms
 #     volumes:
 # #     - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
-#      - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
-#      - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
+#       - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
+#       - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
 #       - ./storage:/var/www/html/storage
 #       - ./.env:/var/www/html/.env
-        
+
 #   scheduler:
 #     image: escolalms/api:latest
 #     networks:
 #       - escola_lms
 #     volumes:
-# #     - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
-#      - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
-# #     - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
+#       - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
+# #      - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
+#       - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
 #       - ./storage:/var/www/html/storage
 #       - ./.env:/var/www/html/.env      
 

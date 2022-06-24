@@ -46,8 +46,47 @@ Once everything is installed (takes a while)
 
 By default all 3 threads phpfpm, Laravels Horizon and Scheduler are severed by one [image container](https://github.com/EscolaLMS/API/blob/develop/Dockerfile)
 
-- `phpfpm` serve main Laravel REST API (with [nginx](https://github.com/EscolaLMS/API/tree/develop/docker/conf/nginx) and [caddy](https://github.com/EscolaLMS/Create-LMS-App/blob/main/Caddyfile))
+- `php-fpm` serve main Laravel REST API (with [nginx](https://github.com/EscolaLMS/API/tree/develop/docker/conf/nginx) and [caddy](https://github.com/EscolaLMS/Create-LMS-App/blob/main/Caddyfile))
 - [`horizon`](https://laravel.com/docs/9.x/horizon) is responsible for all [queue services](https://laravel.com/docs/9.x/queues)
 - [`Task Scheduling`](https://laravel.com/docs/9.x/scheduling) is responsible for all cron jobs
 
 All of above including nginx are served by `supervisor`, definition files are [listed here](https://github.com/EscolaLMS/API/tree/develop/docker/conf/supervisor)
+
+You can scale this by setting each process into separate image container, just by amending `docker-compose.yml` in the following way
+
+```yml
+# NOTE binding emptyfile.conf disable supervisor service
+
+api:
+  image: escolalms/api:latest
+  networks:
+    - escola_lms
+  volumes:
+    - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
+    - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
+    #      - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
+    - ./storage:/var/www/html/storage
+    - ./.env:/var/www/html/.env
+
+horizon:
+  image: escolalms/api:latest
+  networks:
+    - escola_lms
+  volumes:
+    #     - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
+    - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
+    - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
+    - ./storage:/var/www/html/storage
+    - ./.env:/var/www/html/.env
+
+scheduler:
+  image: escolalms/api:latest
+  networks:
+    - escola_lms
+  volumes:
+    - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
+    #      - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
+    - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
+    - ./storage:/var/www/html/storage
+    - ./.env:/var/www/html/.env
+```
