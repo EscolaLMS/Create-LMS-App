@@ -37,8 +37,8 @@ services:
     networks:
       - escola_lms
     volumes:
-      - ./docker/supervisor/horizon.conf:/etc/supervisor/custom.d/horizon.conf
-      - ./docker/supervisor/scheduler.conf:/etc/supervisor/custom.d/scheduler.conf
+#      - ./docker/supervisor/horizon.conf:/etc/supervisor/custom.d/horizon.conf
+#      - ./docker/supervisor/scheduler.conf:/etc/supervisor/custom.d/scheduler.conf
       - ./storage:/var/www/html/storage
       - type: bind
         source: ./.env

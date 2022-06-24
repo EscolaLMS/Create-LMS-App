@@ -59,5 +59,5 @@ success:
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
 	- @echo "if you need to attach your domain just change CaddyFiles"
 	
-init: docker-up dumpautoload generate-new-keys migrate generate-new-keys permissions-seeder storage-links content-rich-seeder restart success 
+init: docker-up dumpautoload generate-new-keys migrate generate-new-keys permissions-seeder storage-links content-seeder restart success 
 
