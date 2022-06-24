@@ -5,9 +5,11 @@ bash:
 dumpautoload: 
 	- docker-compose exec -T -u 1000 api bash -c "composer dumpautoload"
 
-generate-new-keys:
+generate-new-keys-no-db:
 	- docker-compose exec -T -u 1000 api bash -c "php artisan key:generate --force --no-interaction"
 	- docker-compose exec -T -u 1000 api bash -c "php artisan passport:keys --force --no-interaction"
+
+generate-new-keys-db:
 	- docker-compose exec -T -u 1000 api bash -c "php artisan passport:client --personal --no-interaction"
 
 migrate: 
@@ -60,5 +62,5 @@ success:
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
 	- @echo "if you need to attach your domain just change CaddyFiles"
 	
-init: docker-pull docker-up dumpautoload generate-new-keys migrate generate-new-keys permissions-seeder storage-links content-seeder restart success 
+init: docker-pull docker-up dumpautoload generate-new-keys-no-db migrate generate-new-keys-db permissions-seeder storage-links content-rich-seeder restart success 
 
