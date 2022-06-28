@@ -39,6 +39,9 @@ services:
     image: escolalms/api:latest
     networks:
       - escola_lms
+    depends_on: 
+      postgres:
+        condition: service_healthy
     volumes:
 #      - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
 #      - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
@@ -50,6 +53,9 @@ services:
 #     image: escolalms/api:latest
 #     networks:
 #       - escola_lms
+#    depends_on: 
+#      postgres:
+#        condition: service_healthy
 #     volumes:
 # #     - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
 #       - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
@@ -61,6 +67,9 @@ services:
 #     image: escolalms/api:latest
 #     networks:
 #       - escola_lms
+#    depends_on: 
+#      postgres:
+#        condition: service_healthy
 #     volumes:
 #       - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
 # #      - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
@@ -72,6 +81,12 @@ services:
     image: postgres:12
     networks:
       - escola_lms
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
     volumes:
       - ./docker/postgres-data:/var/lib/postgresql/data
     environment:
