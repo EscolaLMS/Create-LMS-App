@@ -40,8 +40,8 @@ services:
     networks:
       - escola_lms
     depends_on: 
-      postgres:
-        condition: service_healthy
+      - postgres
+          
     volumes:
 #      - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
 #      - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
