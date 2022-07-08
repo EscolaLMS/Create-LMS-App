@@ -33,8 +33,8 @@ run `make init` shell script
 
 ## Installation from source
 
-Clone this repository
-Run `make init` in PowerShell (and not in WSL shell, because it will lead to problems with binding Postgres data volume for persistence)
+- Clone this repository
+- Run `make init` in PowerShell (and not in WSL shell, because it will lead to problems with binding Postgres data volume for persistence)
 
 ## First steps
 
