@@ -2,15 +2,12 @@
 
 Development version
 
-## Installation
+## Installation on MacOs or Linux
 
-Assuming
+### Requirements
 
-- you're on MacOS or Linux
 - you have `docker` & `docker-composer` installed
 - port 80 is free
-
-You have the following options
 
 ### Installation from script
 
@@ -23,6 +20,21 @@ Clone this repository then,
 in order to launch LMS
 
 run `make init` shell script
+
+## Instalation on Windows
+
+### Requiremenets
+
+- `WSL` installed (https://docs.microsoft.com/en-us/windows/wsl/install)
+- `Docker` installed (https://docs.docker.com/desktop/windows/install/) and configured to use WSL
+- `make` available in PowerShell (for example, you can install `Chocolatey` https://chocolatey.org/install and then install `make` using it)
+
+*Recommended*: use Windows Terminal (https://apps.microsoft.com/store/detail/windows-terminal/) and latest PowerShell (https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2)
+
+## Installation from source
+
+Clone this repository
+Run `make init` in PowerShell (and not in WSL shell, because it will lead to problems with binding Postgres data volume for persistence)
 
 ## First steps
 
