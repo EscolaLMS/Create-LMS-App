@@ -23,7 +23,7 @@ run `make init` shell script
 
 ## Instalation on Windows
 
-### Requiremenets
+### Requirements
 
 - `WSL` installed (https://docs.microsoft.com/en-us/windows/wsl/install)
 - `Docker` installed (https://docs.docker.com/desktop/windows/install/) and configured to use WSL
@@ -31,7 +31,7 @@ run `make init` shell script
 
 *Recommended*: use Windows Terminal (https://apps.microsoft.com/store/detail/windows-terminal/) and latest PowerShell (https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2)
 
-## Installation from source
+### Installation from source
 
 - Clone this repository
 - Run `make init` in PowerShell (and not in WSL shell, because it will lead to problems with binding Postgres data volume for persistence)
