@@ -52,8 +52,8 @@ storage-links:
 	
 # creates a backup file into `data` folder
 backup-postgres:
-	- docker-compose --env-file ./env/.env  exec --user=1000 -T postgres bash -c "pg_dump --clean --dbname=$(POSTGRES_DB) -f /var/lib/postgresql/backups/backup-$(NOW_DB_PREFIX).sql"	
-	- docker-compose  --env-file ./env/.env  exec --user=1000 -T postgres bash -c "cp /var/lib/postgresql/backups/backup-$(NOW_DB_PREFIX).sql  /var/lib/postgresql/backups/backup-latest.sql"
+	- docker-compose --env-file .env  exec --user=1000 -T postgres bash -c "pg_dump --clean --dbname=$(POSTGRES_DB) -f /var/lib/postgresql/backups/backup-$(NOW_DB_PREFIX).sql"	
+	- docker-compose --env-file .env  exec --user=1000 -T postgres bash -c "cp /var/lib/postgresql/backups/backup-$(NOW_DB_PREFIX).sql  /var/lib/postgresql/backups/backup-latest.sql"
 
 # imports database backup from data folder 
 # make import BACKUP_FILE=backup-2020-09-15-14:49:22.sql 
@@ -62,7 +62,7 @@ backup-postgres:
 #import-postgres: backup-postgres
 
 import-postgres: 
-	- docker-compose --env-file ./env/.env  exec --user=1000 postgres bash -c "psql --dbname=$(POSTGRES_DB) < /var/lib/postgresql/backups/$(BACKUP_FILE)"
+	- docker-compose --env-file .env  exec --user=1000 postgres bash -c "psql --dbname=$(POSTGRES_DB) < /var/lib/postgresql/backups/$(BACKUP_FILE)"
 	
 
 success: 
