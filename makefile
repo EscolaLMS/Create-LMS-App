@@ -49,6 +49,21 @@ h5p-seed:
 storage-links:
 	- docker-compose exec -T -u 1000 api bash -c "php artisan storage:link --force --no-interaction"
 	- docker-compose exec -T -u 1000 api bash -c "php artisan h5p:storage-link"
+	
+# creates a backup file into `data` folder
+backup-postgres:
+	- docker-compose --env-file ./env/.env  exec --user=1000 -T postgres bash -c "pg_dump --clean --dbname=$(POSTGRES_DB) -f /var/lib/postgresql/backups/backup-$(NOW_DB_PREFIX).sql"	
+	- docker-compose  --env-file ./env/.env  exec --user=1000 -T postgres bash -c "cp /var/lib/postgresql/backups/backup-$(NOW_DB_PREFIX).sql  /var/lib/postgresql/backups/backup-latest.sql"
+
+# imports database backup from data folder 
+# make import BACKUP_FILE=backup-2020-09-15-14:49:22.sql 
+# or 
+# make import BACKUP_FILE=backup-latest.sql
+#import-postgres: backup-postgres
+
+import-postgres: 
+	- docker-compose --env-file ./env/.env  exec --user=1000 postgres bash -c "psql --dbname=$(POSTGRES_DB) < /var/lib/postgresql/backups/$(BACKUP_FILE)"
+	
 
 success: 
 	- @echo "Wellms is installed succesfully"
