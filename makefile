@@ -66,7 +66,9 @@ backup-postgres:
 
 import-postgres: 
 	- docker-compose --env-file .env  exec --user=1000 postgres bash -c "psql --dbname=$(POSTGRES_DB) < /var/lib/postgresql/backups/$(BACKUP_FILE)"
-	
+
+flush-postgres: 
+	- rm -rf docker/postgres-data	
 
 success: 
 	- @echo "Wellms is installed succesfully"
@@ -82,3 +84,4 @@ success:
 	
 init: generate-credentials docker-pull docker-up dumpautoload generate-new-keys-no-db migrate generate-new-keys-db permissions-seeder storage-links content-rich-seeder restart success 
 
+refresh: flush-postgres init
