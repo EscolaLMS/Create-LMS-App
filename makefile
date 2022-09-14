@@ -69,6 +69,8 @@ import-postgres:
 
 flush-postgres: 
 	- rm -rf docker/postgres-data	
+	- docker-compose down
+
 
 success: 
 	- @echo "Wellms is installed succesfully"
