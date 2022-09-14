@@ -3,3 +3,6 @@ docker
 /storage/api-docs
 caddy/
 .vscode
+vendor
+.env
+*.yml

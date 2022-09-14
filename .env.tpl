@@ -1,7 +1,7 @@
 APP_NAME=Wellms
 APP_ENV=local
 APP_KEY=base64:4eRGpWIIGunZD3AlUrgbeYc29+tC6l2Ky7EMJGO5tqY=
-APP_DEBUG=false
+APP_DEBUG=true
 APP_LOG_LEVEL=debug
 APP_URL=http://api.wellms.localhost/
 
@@ -10,10 +10,10 @@ DB_HOST=postgres
 DB_PORT=5432
 DB_DATABASE=default
 DB_USERNAME=default
-DB_PASSWORD=secret
+DB_PASSWORD=$DBPASS_RND
 
 REDIS_HOST=redis
-REDIS_PASSWORD=escola_lms
+REDIS_PASSWORD=$REDISPASS_RND
 REDIS_PORT=6379
 
 

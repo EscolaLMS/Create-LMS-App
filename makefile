@@ -2,6 +2,9 @@
 bash:
 	- docker-compose exec -u 1000 api bash
 
+generate-credentials:	
+	- sh credentials.sh
+
 dumpautoload: 
 	- docker-compose exec -T -u 1000 api bash -c "composer dumpautoload"
 
@@ -25,7 +28,7 @@ content-rich-seeder:
 	- docker-compose exec -T -u 1000 api bash -c "php artisan db:seed --class=FullDatabaseSeeder --force --no-interaction"
 
 docker-up:
-	- docker-compose up -d	
+	- docker-compose up -d --remove-orphans	
 
 docker-up-force:
 	- docker-compose up -d	--force-recreate
@@ -77,5 +80,5 @@ success:
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
 	- @echo "if you need to attach your domain just change CaddyFiles"
 	
-init: docker-pull docker-up dumpautoload generate-new-keys-no-db migrate generate-new-keys-db permissions-seeder storage-links content-rich-seeder restart success 
+init: generate-credentials docker-pull docker-up dumpautoload generate-new-keys-no-db migrate generate-new-keys-db permissions-seeder storage-links content-rich-seeder restart success 
 
