@@ -48,9 +48,6 @@ services:
       #      - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
       - ./storage:/var/www/html/storage
       - ./.env:/var/www/html/.env
-      - ./vendor/escolalms/headless-h5p:/var/www/html/vendor/escolalms/headless-h5p
-      - ./vendor/h5p-php-library:/var/www/html/vendor/h5p/h5p-core
-      - ./vendor/h5p-editor-php-library:/var/www/html/vendor/h5p/h5p-editor
 
   #   horizon:
   #     image: escolalms/api:latest
