@@ -3,7 +3,7 @@ bash:
 	- docker-compose exec -u 1000 api bash
 
 generate-credentials:	
-	- sh credentials.sh
+	- bash credentials.sh
 
 dumpautoload: 
 	- docker-compose exec -T -u 1000 api bash -c "composer dumpautoload"
