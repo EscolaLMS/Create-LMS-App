@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # generate random secure passwords
 DBPASS_RND=$(openssl rand -base64 12);
