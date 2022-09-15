@@ -3,7 +3,7 @@ APP_ENV=production
 APP_KEY=base64:4eRGpWIIGunZD3AlUrgbeYc29+tC6l2Ky7EMJGO5tqY=
 APP_DEBUG=false
 APP_LOG_LEVEL=debug
-APP_URL=http://api.wellms.localhost/
+APP_URL=$API_URL
 
 DB_CONNECTION=pgsql
 DB_HOST=postgres
