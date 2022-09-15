@@ -22,6 +22,11 @@ YAML=$(docker run -i --rm mikefarah/yq eval '.services.postgres.environment[2] =
 echo "$YAML" > docker-compose.yml.tpl.tmp
 YAML=$(docker run -i --rm mikefarah/yq eval '.services.redis.command = "redis-server --requirepass '${REDISPASS_RND}'"' < docker-compose.yml.tpl.tmp)
 echo "$YAML" > docker-compose.yml.tpl.tmp
+YAML=$(docker run -i --rm mikefarah/yq eval '.services.app.environment[0] = "API_URL='${API_URL}'"' < docker-compose.yml.tpl.tmp)
+echo "$YAML" > docker-compose.yml.tpl.tmp
+YAML=$(docker run -i --rm mikefarah/yq eval '.services.admin.environment[0] = "API_URL='${API_URL}'"' < docker-compose.yml.tpl.tmp)
+echo "$YAML" > docker-compose.yml.tpl.tmp
+
 
 # Remove previous files if the exists
 rm -f docker-compose.yml .env docker-compose.yml.tpl.tmp
