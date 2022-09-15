@@ -8,7 +8,7 @@ REDISPASS_RND=$(openssl rand -base64 12);
 API_URL="${API_URL:-http://api.wellms.localhost}"  
 ADMIN_URL="${ADMIN_URL:-http://admin.wellms.localhost}"  
 APP_URL="${APP_URL:-http://app.wellms.localhost}"  
-MAILHOG_URL="${APP_URL:-http://mailhog.wellms.localhost}"  
+MAILHOG_URL="${MAILHOG_URL:-http://mailhog.wellms.localhost}"  
 
 API_URL_DOMAIN="$(echo "$API_URL" | awk -F/ '{print $3}')"
 ADMIN_URL_DOMAIN="$(echo "$ADMIN_URL" | awk -F/ '{print $3}')"
