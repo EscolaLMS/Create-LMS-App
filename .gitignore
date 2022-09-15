@@ -6,3 +6,5 @@ caddy/
 vendor
 .env
 *.yml
+.DS_Store
+Caddyfile
