@@ -1,6 +1,7 @@
 (cors) {
   @origin{args.0} header Origin {args.0}
   header @origin{args.0} Access-Control-Allow-Origin "{args.0}"
+  header Access-Control-Allow-Credentials true
 }
 
 $ADMIN_URL_DOMAIN {
