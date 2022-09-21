@@ -7,6 +7,7 @@ networks:
 services:
 
   proxy:
+    user: $DOCKER_USER
     image: caddy
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
@@ -36,6 +37,7 @@ services:
   # NOTE binding emptyfile.conf disable supervisor service
 
   api:
+    user: $DOCKER_USER
     image: escolalms/api:latest
     networks:
       - escola_lms
