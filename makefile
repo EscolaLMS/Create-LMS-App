@@ -1,3 +1,5 @@
+export POSTGRES_DB=postgresql://$(DB_USERNAME):$(DB_PASSWORD)@127.0.0.1:$(DB_PORT)/$(DB_DATABASE)
+export NOW_DB_PREFIX=$(shell date +\%Y-\%m-\%d-\%H:\%M:\%S)
 
 bash:
 	- docker-compose exec -u 1000 api bash
