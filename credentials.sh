@@ -5,13 +5,13 @@ DBPASS_RND=$(openssl rand -base64 12);
 REDISPASS_RND=$(openssl rand -base64 12);
 
 # generated 
-API_URL="${API_URL:-http://api.wellms.localhost}"  
+APP_URL="${APP_URL:-http://api.wellms.localhost}"  
 ADMIN_URL="${ADMIN_URL:-http://admin.wellms.localhost}"  
-APP_URL="${APP_URL:-http://app.wellms.localhost}"  
+FRONT_URL="${FRONT_URL:-http://app.wellms.localhost}"  
 MAILHOG_URL="${MAILHOG_URL:-http://mailhog.wellms.localhost}"  
 
 # fetch just domain from URLs 
-API_URL_DOMAIN="$(echo "$API_URL" | awk -F/ '{print $3}')"
+FRONT_URL_DOMAIN="$(echo "$FRONT_URL" | awk -F/ '{print $3}')"
 ADMIN_URL_DOMAIN="$(echo "$ADMIN_URL" | awk -F/ '{print $3}')"
 APP_URL_DOMAIN="$(echo "$APP_URL" | awk -F/ '{print $3}')"
 MAILHOG_URL_DOMAIN="$(echo "$MAILHOG_URL" | awk -F/ '{print $3}')"
@@ -22,9 +22,9 @@ YAML=$(docker run -i --rm mikefarah/yq eval '.services.postgres.environment[2] =
 echo "$YAML" > docker-compose.yml.tpl.tmp
 YAML=$(docker run -i --rm mikefarah/yq eval '.services.redis.command = "redis-server --requirepass '${REDISPASS_RND}'"' < docker-compose.yml.tpl.tmp)
 echo "$YAML" > docker-compose.yml.tpl.tmp
-YAML=$(docker run -i --rm mikefarah/yq eval '.services.app.environment[0] = "API_URL='${API_URL}'"' < docker-compose.yml.tpl.tmp)
+YAML=$(docker run -i --rm mikefarah/yq eval '.services.app.environment[0] = "API_URL='${APP_URL}'"' < docker-compose.yml.tpl.tmp)
 echo "$YAML" > docker-compose.yml.tpl.tmp
-YAML=$(docker run -i --rm mikefarah/yq eval '.services.admin.environment[0] = "API_URL='${API_URL}'"' < docker-compose.yml.tpl.tmp)
+YAML=$(docker run -i --rm mikefarah/yq eval '.services.admin.environment[0] = "API_URL='${APP_URL}'"' < docker-compose.yml.tpl.tmp)
 echo "$YAML" > docker-compose.yml.tpl.tmp
 
 # Remove previous files if the exists
