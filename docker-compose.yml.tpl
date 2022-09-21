@@ -89,6 +89,7 @@ services:
       start_period: 80s
     volumes:
       - ./docker/postgres-data:/var/lib/postgresql/data
+      - ./docker/postgres-backups:/var/lib/postgresql/backups
     environment:
       - POSTGRES_DB=default
       - POSTGRES_USER=default
