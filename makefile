@@ -1,3 +1,6 @@
+-include .env
+POSTGRES_DB=postgresql://$(DB_USERNAME):$(DB_PASSWORD)@127.0.0.1:$(DB_PORT)/$(DB_DATABASE)
+NOW_DB_PREFIX=$(shell date +\%Y-\%m-\%d-\%H:\%M:\%S)
 export DOCKER_USER=$(id -u)
 
 bash:
@@ -56,9 +59,6 @@ storage-links:
 	
 # creates a backup file into `data` folder
 backup-postgres:
-	include .env
-	POSTGRES_DB=postgresql://$(DB_USERNAME):$(DB_PASSWORD)@127.0.0.1:$(DB_PORT)/$(DB_DATABASE)
-	NOW_DB_PREFIX=$(shell date +\%Y-\%m-\%d-\%H:\%M:\%S)
 	- docker-compose --env-file .env  exec --user=1000 -T postgres bash -c "pg_dump --clean --dbname=$(POSTGRES_DB) -f /var/lib/postgresql/backups/backup-$(NOW_DB_PREFIX).sql"	
 	- docker-compose --env-file .env  exec --user=1000 -T postgres bash -c "cp /var/lib/postgresql/backups/backup-$(NOW_DB_PREFIX).sql  /var/lib/postgresql/backups/backup-latest.sql"
 
