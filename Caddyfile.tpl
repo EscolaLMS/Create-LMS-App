@@ -8,16 +8,16 @@ $ADMIN_URL_DOMAIN {
 	reverse_proxy admin:80
 }
 
-$APP_URL_DOMAIN {
+$FRONT_URL_DOMAIN {
 	reverse_proxy app:80
 }
 
-$API_URL_DOMAIN  {
+$APP_URL_DOMAIN  {
 	reverse_proxy api:80 {	
 		header_down -Access-Control-Allow-Origin	
 	}
 	import cors $ADMIN_URL
-	import cors $APP_URL
+	import cors $FRONT_URL
 }
 
 $MAILHOG_URL_DOMAIN  {
