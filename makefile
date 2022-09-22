@@ -66,7 +66,7 @@ backup-postgres:
 #import-postgres: backup-postgres
 
 import-postgres: 
-	docker-compose --env-file .env  exec postgres bash -c "psql --dbname=$(POSTGRES_DB) < /var/lib/postgresql/backups/$(BACKUP_FILE)"
+	bash import.sh
 
 flush-postgres: 
 	- rm -rf docker/postgres-data	
