@@ -24,11 +24,10 @@ url_encode() {
 
 DB_PASSWORD_ESC=$(url_encode "$DB_PASSWORD")
 
-echo $DB_PASSWORD_ESC;
-
-
 POSTGRES_DB=postgresql://$DB_USERNAME:$DB_PASSWORD_ESC@127.0.0.1:$DB_PORT/$DB_DATABASE
 BACKUP_FILE="${BACKUP_FILE:-backup-solid.sql}"  
 
 docker-compose --env-file .env  exec postgres bash -c "psql --dbname=${POSTGRES_DB} < /var/lib/postgresql/backups/${BACKUP_FILE}"
+
+echo "Backup create at backups/${BACKUP_FILE}"
 
