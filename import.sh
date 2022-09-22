@@ -21,6 +21,8 @@ url_encode() {
 
 DB_PASSWORD_ESC=$(url_encode "$DB_PASSWORD")
 
+echo $DB_PASSWORD_ESC;
+
 
 POSTGRES_DB=postgresql://$DB_USERNAME:$DB_PASSWORD_ESC@127.0.0.1:$DB_PORT/$DB_DATABASE
 BACKUP_FILE="${BACKUP_FILE:-backup-solid.sql}"  
