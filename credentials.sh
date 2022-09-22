@@ -10,6 +10,8 @@ ADMIN_URL="${ADMIN_URL:-http://admin.wellms.localhost}"
 FRONT_URL="${FRONT_URL:-http://app.wellms.localhost}"  
 MAILHOG_URL="${MAILHOG_URL:-http://mailhog.wellms.localhost}"  
 
+
+
 # fetch just domain from URLs 
 FRONT_URL_DOMAIN="$(echo "$FRONT_URL" | awk -F/ '{print $3}')"
 ADMIN_URL_DOMAIN="$(echo "$ADMIN_URL" | awk -F/ '{print $3}')"
@@ -32,6 +34,8 @@ rm -f docker-compose.yml .env docker-compose.yml.tpl.tmp
 
 # save values to files
 eval "cat <<< \"$(<.env.tpl)\"" > .env
+
+## TODO if domain is local use tls self_signed in caddy
 eval "cat <<< \"$(<Caddyfile.tpl)\"" > Caddyfile
 
 echo "$YAML" > docker-compose.yml
