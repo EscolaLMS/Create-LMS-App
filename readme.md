@@ -2,6 +2,13 @@
 
 Development version
 
+## Kubernetes
+
+Use provided `yml` k8s files to deploy instance.
+
+1. Edit [`k8s/ingress.yaml`](k8s/ingress.yaml) setup you domain names
+2. Apply all yaml's `kubectl apply -f k8s`
+
 ## Installation on MacOs or Linux
 
 ### Requirements
@@ -29,7 +36,7 @@ run `make init` shell script
 - `Docker` installed (https://docs.docker.com/desktop/windows/install/) and configured to use WSL
 - `make` available in PowerShell (for example, you can install `Chocolatey` https://chocolatey.org/install and then install `make` using it)
 
-*Recommended*: use Windows Terminal (https://apps.microsoft.com/store/detail/windows-terminal/) and latest PowerShell (https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2)
+_Recommended_: use Windows Terminal (https://apps.microsoft.com/store/detail/windows-terminal/) and latest PowerShell (https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2)
 
 ### Installation from source
 

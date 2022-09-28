@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: escolalms-backend
+  namespace: escolalms
+spec:
+  selector:
+    matchLabels:
+      app: escolalms-backend
+      component: backend
+  template:
+    metadata:
+      labels:
+        app: escolalms-backend
+        component: backend
+    spec:
+      containers:
+      - name: escolalms-backend
+        image: escolalms/api:latest
+        command: ["/bin/sh"]
+        #args: ["/etc/supervisor/conf.d/"]
+        args: ["-c", "/docker-entrypoint.sh && /var/www/html/init.sh && /usr/bin/supervisord -c /etc/supervisor/supervisord.conf"]
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: laravel-config
+        ports:
+          - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: escolalms-backend-service
+    namespace: escolalms
+spec:
+    selector:
+        app: escolalms-backend
+    type: ClusterIP
+    ports:
+        -   port: 80
+            targetPort: 80
