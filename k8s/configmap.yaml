@@ -14,6 +14,8 @@ data:
   POSTGRES_PASSWORD: P7qlhud4rSEpQFup
   TZ: Europe/Warsaw
 
+  API_URL: "http://backend.localhost"
+
   # Laravel .env 
   # all env with LARAVEL_ prefix will be replaced in .env, see https://github.com/EscolaLMS/API/blob/develop/docker/envs/envs.php
   LARAVEL_APP_ENV: "production"
@@ -29,9 +31,6 @@ data:
   LARAVEL_DB_DATABASE: default
   LARAVEL_DB_USERNAME: default
   LARAVEL_DB_PASSWORD: P7qlhud4rSEpQFup
-
-
-  
 
   LARAVEL_BROADCAST_DRIVER: "log"
   LARAVEL_CACHE_DRIVER: "file"

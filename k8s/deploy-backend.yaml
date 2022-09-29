@@ -14,18 +14,31 @@ spec:
         app: escolalms-backend
         component: backend
     spec:
+      
+      volumes:
+      - name: storage
+        hostPath:
+          path: "/mnt/escolalms/storage"
+
       containers:
       - name: escolalms-backend
         image: escolalms/api:latest
         command: ["/bin/sh"]
-        #args: ["/etc/supervisor/conf.d/"]
-        args: ["-c", "/docker-entrypoint.sh && /var/www/html/init.sh && /usr/bin/supervisord -c /etc/supervisor/supervisord.conf"]
+        args: ["-c", "/docker-entrypoint.sh && /var/www/html/init.sh && php artisan db:seed --force --no-interaction && chown -R devilbox:devilbox /var/www/html && /usr/bin/supervisord -c /etc/supervisor/supervisord.conf"]
         imagePullPolicy: Always
+        env:
+        - name: DISBALE_HORIZON
+          value: "true"
+        - name: DISBALE_SCHEDULER
+          value: "true"
         envFrom:
         - configMapRef:
             name: laravel-config
         ports:
           - containerPort: 80
+        volumeMounts:
+          - name: storage
+            mountPath: /var/www/html/storage
 ---
 apiVersion: v1
 kind: Service

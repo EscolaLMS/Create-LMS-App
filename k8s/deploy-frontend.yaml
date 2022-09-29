@@ -18,6 +18,9 @@ spec:
       - name: escolalms-frontend
         image: escolalms/demo:latest
         imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: laravel-config
         ports:
           - containerPort: 80
 ---
