@@ -30,7 +30,7 @@ spec:
       volumes:
         - name: postgredb
           hostPath:
-            path: "/mnt/omana/psql"
+            path: "/mnt/escolalms/psql"
 ---
 apiVersion: v1
 kind: Service
