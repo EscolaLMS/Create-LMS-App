@@ -22,7 +22,12 @@ spec:
         - configMapRef:
             name: laravel-config
         ports:
-          - containerPort: 8025
+          - name: http
+            containerPort: 8025
+            protocol: TCP
+          - name: smtp
+            containerPort: 1025
+            protocol: TCP
 ---
 apiVersion: v1
 kind: Service
@@ -35,11 +40,12 @@ spec:
     type: ClusterIP
     ports:
     - name: http
-      port: 8085
+      port: 8025
       protocol: TCP
       targetPort: http
-      
+     
     - name: smtp
       port: 1025
       protocol: TCP
       targetPort: smtp
+     
