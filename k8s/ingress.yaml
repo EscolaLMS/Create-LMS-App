@@ -5,33 +5,43 @@ metadata:
   namespace: escolalms
 spec:
   rules:
-  - host: backend.localhost
-    http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: escolalms-backend-service
-              port:
-                number: 80
-  - host: demo.localhost
-    http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: escolalms-frontend-service
-              port:
-                number: 80
-  - host: admin.localhost
-    http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: escolalms-admin-service
-              port:
-                number: 80
+    - host: api.wellms.localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: escolalms-backend-service
+                port:
+                  number: 80
+    - host: app.wellms.localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: escolalms-frontend-service
+                port:
+                  number: 80
+    - host: admin.wellms.localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: escolalms-admin-service
+                port:
+                  number: 80
+    - host: mailhog.wellms.localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: escolalms-mailhog-service
+                port:
+                  number: 8025

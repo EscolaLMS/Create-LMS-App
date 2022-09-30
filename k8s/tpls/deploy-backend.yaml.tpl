@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: escolalms-backend
+  namespace: escolalms
+spec:
+  selector:
+    matchLabels:
+      app: escolalms-backend
+      component: backend
+  template:
+    metadata:
+      labels:
+        app: escolalms-backend
+        component: backend
+    spec:
+      
+      volumes:
+      - name: storage
+        hostPath:
+          path: "/mnt/escolalms/storage"
+
+      containers:
+      - name: escolalms-backend
+        image: escolalms/api:latest
+        command: ["/bin/sh"]
+        args: ["-c", "/docker-entrypoint.sh && /var/www/html/init.sh && php artisan db:seed --force --no-interaction && chown -R devilbox:devilbox /var/www/html && /usr/bin/supervisord -c /etc/supervisor/supervisord.conf"]
+        imagePullPolicy: Always
+        env:
+        - name: DISBALE_HORIZON
+          value: "true"
+        - name: DISBALE_SCHEDULER
+          value: "true"
+        envFrom:
+        - configMapRef:
+            name: laravel-config
+        ports:
+          - containerPort: 80
+        volumeMounts:
+          - name: storage
+            mountPath: /var/www/html/storage
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: escolalms-backend-service
+    namespace: escolalms
+spec:
+    selector:
+        app: escolalms-backend
+    type: ClusterIP
+    ports:
+        -   port: 80
+            targetPort: 80

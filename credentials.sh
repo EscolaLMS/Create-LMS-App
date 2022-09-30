@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # generate random secure passwords
-DB_PASSWORD=$(openssl rand -base64 12);
-REDIS_PASSWORD=$(openssl rand -base64 12);
+DB_PASSWORD=$(openssl rand -hex 12);
+REDIS_PASSWORD=$(openssl rand -hex 12);
 
 # generated 
 APP_URL="${APP_URL:-http://api.wellms.localhost}"  

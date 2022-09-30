@@ -24,13 +24,13 @@ spec:
           envFrom:
             - configMapRef:
                 name: laravel-config
-      #     volumeMounts:
-      #       - mountPath: /var/lib/postgresql/data
-      #         name: postgredb
-      # volumes:
-      #   - name: postgredb
-      #     hostPath:
-      #       path: "/mnt/escolalms/psql"
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgredb
+      volumes:
+        - name: postgredb
+          hostPath:
+            path: "/mnt/escolalms/psql"
 ---
 apiVersion: v1
 kind: Service

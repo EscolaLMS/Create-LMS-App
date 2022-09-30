@@ -1,3 +1,4 @@
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6,12 +7,15 @@ metadata:
     name: laravel-config
   namespace: escolalms
 data:
+
   # PostgreSQL credentials
   POSTGRES_DB: default
   POSTGRES_USER: default
-  POSTGRES_PASSWORD: 7869f84174ab90686481c9d2
+  POSTGRES_PASSWORD: P7qlhud4rSEpQFup
   TZ: Europe/Warsaw
-  API_URL: "http://api.wellms.localhost"
+
+  API_URL: "http://backend.localhost"
+
   # Laravel .env 
   # all env with LARAVEL_ prefix will be replaced in .env, see https://github.com/EscolaLMS/API/blob/develop/docker/envs/envs.php
   LARAVEL_APP_ENV: "production"
@@ -19,20 +23,24 @@ data:
   LARAVEL_APP_DEBUG: "false"
   LARAVEL_APP_LOG: "errorlog"
   LARAVEL_APP_LOG_LEVEL: "debug"
-  LARAVEL_APP_URL: "http://api.wellms.localhost"
+  LARAVEL_APP_URL: "backend.localhost"
+
   LARAVEL_DB_CONNECTION: pgsql
   LARAVEL_DB_HOST: escolalms-postgres
   LARAVEL_DB_PORT: "5432"
   LARAVEL_DB_DATABASE: default
   LARAVEL_DB_USERNAME: default
-  LARAVEL_DB_PASSWORD: 7869f84174ab90686481c9d2
+  LARAVEL_DB_PASSWORD: P7qlhud4rSEpQFup
+
   LARAVEL_BROADCAST_DRIVER: "log"
   LARAVEL_CACHE_DRIVER: "file"
   LARAVEL_SESSION_DRIVER: "file"
   LARAVEL_QUEUE_DRIVER: "sync"
+
   LARAVEL_REDIS_HOST: "escolalms-redis"
-  LARAVEL_REDIS_PASSWORD: "14cc44cdb5c2aea86b77575b"
+  LARAVEL_REDIS_PASSWORD: "P7qlhud4rSEpQFup"
   LARAVEL_REDIS_PORT: "6379"
+
   LARAVEL_MAIL_DRIVER: "smtp"
   LARAVEL_MAIL_HOST: escolalms-mailhog
   LARAVEL_MAIL_PORT: "1025"

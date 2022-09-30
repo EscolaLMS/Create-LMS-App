@@ -4,10 +4,11 @@ Development version
 
 ## Kubernetes
 
-Use provided `yml` k8s files to deploy instance.
+Use provided `yml.tpl` k8s files to deploy instance.
 
-1. Edit [`k8s/ingress.yaml`](k8s/ingress.yaml) setup you domain names
-2. Apply all yaml's `kubectl apply -f k8s`
+1. See yaml's at [`k8s/ingress.yaml`](k8s/ingress.yaml)
+2. Generate `yml` with bash script `bash k8s/generate.sh`
+3. Apply all yaml's `kubectl apply -f k8s`
 
 ## Installation on MacOs or Linux
 
