@@ -22,7 +22,7 @@
   },
   "bin": {
     "lms": "pull_init.sh",
-    "k8s-init": "pull_init.sh"
+    "k8s-init": "pull_init_k8s.sh"
   },
   "homepage": "https://github.com/EscolaLMS/Create-LMS-App#readme"
 }
