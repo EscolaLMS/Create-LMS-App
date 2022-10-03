@@ -1,16 +1,48 @@
 # Create LMS APP
 
-Development version
+This package contains all the resources need to install Wellms Headless LMS from docker-images
+
+## Installation on MacOs or Linux
+
+Below are instruction on how to install Wellms on MacOs or Linux.
+Windows with WSL should work fine, yet there might be some issues
+
+- please [do share them](https://github.com/EscolaLMS/Create-LMS-App/issues/new) with us.
+
+## Environment
 
 ## Kubernetes
 
-Use provided `yml.tpl` k8s files to deploy instance.
+### Without `helm`
 
-1. See yaml's at [`k8s/ingress.yaml`](k8s/ingress.yaml)
-2. Generate `yml` with bash script `bash k8s/generate.sh`
-3. Apply all yaml's `kubectl apply -f k8s`
+All `yaml` file templates are inside [`k8s/tpls`](k8s/tpls) folder
 
-## Installation on MacOs or Linux
+You can either generate yaml by calling bash script `cd k8s && bash generate.sh`
+or by calling makefile job `make
+or but setting all config manually
+
+Once `yaml` files are in `k8s` folder run `kubectl apply -f k8s`
+
+#### Custom domain
+
+Those are env variables you can set while running generate
+
+```bash
+APP_URL="${APP_URL:-http://api.wellms.localhost}"
+ADMIN_URL="${ADMIN_URL:-http://admin.wellms.localhost}"
+FRONT_URL="${FRONT_URL:-http://app.wellms.localhost}"
+MAILHOG_URL="${MAILHOG_URL:-http://mailhog.wellms.localhost}"
+```
+
+#### Makefile jobs
+
+### With `helm`
+
+`WIP`
+
+## From docker container images
+
+Below are instructions how to install Wellms from [https://hub.docker.com/search?q=escolalms](docker images) in various ways.
 
 ### Requirements
 
@@ -40,6 +72,8 @@ run `make init` shell script
 _Recommended_: use Windows Terminal (https://apps.microsoft.com/store/detail/windows-terminal/) and latest PowerShell (https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2)
 
 ### Installation from source
+
+The `source` means source code of this repository, not the actual Wellms components. Tasks describes below will install docker containers.
 
 - Clone this repository
 - Run `make init` in PowerShell (and not in WSL shell, because it will lead to problems with binding Postgres data volume for persistence)
@@ -75,38 +109,42 @@ All of above including nginx are served by `supervisor`, definition files are [l
 You can scale this by setting each process into separate image container, just by amending `docker-compose.yml` in the following way
 
 ```yml
-# NOTE binding emptyfile.conf disable supervisor service
-
 api:
   image: escolalms/api:latest
   networks:
     - escola_lms
   volumes:
-    - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
-    - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
-    #      - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
     - ./storage:/var/www/html/storage
     - ./.env:/var/www/html/.env
+  environment:
+    - DISBALE_PHP_FPM=false
+    - DISBALE_NGINX=false
+    - DISBALE_HORIZON=true
+    - DISBALE_SCHEDULER=true
 
 horizon:
   image: escolalms/api:latest
   networks:
     - escola_lms
   volumes:
-    #     - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
-    - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
-    - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
     - ./storage:/var/www/html/storage
     - ./.env:/var/www/html/.env
+  environment:
+    - DISBALE_PHP_FPM=true
+    - DISBALE_NGINX=true
+    - DISBALE_HORIZON=false
+    - DISBALE_SCHEDULER=true
 
 scheduler:
   image: escolalms/api:latest
   networks:
     - escola_lms
   volumes:
-    - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
-    #      - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
-    - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
     - ./storage:/var/www/html/storage
     - ./.env:/var/www/html/.env
+  environment:
+    - DISBALE_PHP_FPM=true
+    - DISBALE_NGINX=true
+    - DISBALE_HORIZON=true
+    - DISBALE_SCHEDULER=false
 ```

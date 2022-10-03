@@ -14,10 +14,7 @@ spec:
         app: escolalms-scheduler-queue
         component: backend
     spec:
-      volumes:
-      - name: storage
-        hostPath:
-          path: "/mnt/escolalms/storage"
+
       containers:
       - name: escolalms-scheduler-queue
         image: escolalms/api:latest
@@ -35,10 +32,10 @@ spec:
         volumeMounts:
             -   name: escolalms-backend-persistent-storage
                 mountPath: /var/www/html/storage
-    volumes:
-        -   name: escolalms-backend-persistent-storage
-            persistentVolumeClaim:
-                claimName:  escolalms-backend-pv-claim
+      volumes:
+          -   name: escolalms-backend-persistent-storage
+              persistentVolumeClaim:
+                  claimName:  escolalms-backend-pv-claim
 ---
 apiVersion: v1
 kind: Service

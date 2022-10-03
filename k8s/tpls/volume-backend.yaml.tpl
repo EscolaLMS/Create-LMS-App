@@ -7,7 +7,7 @@ metadata:
     labels:
         type: local
 spec:
-    storageClassName: manual
+    storageClassName: ""
     capacity:
         storage: 5Gi
     accessModes:
@@ -21,7 +21,7 @@ metadata:
     name: escolalms-backend-pv-claim
     namespace: escolalms
 spec:
-    storageClassName: manual
+    storageClassName: ""
     accessModes:
         - ReadWriteOnce
     resources:

@@ -97,7 +97,8 @@ k8s-generate-yaml:
 k8s-delete: 
 	kubectl delete all --all -n escolalms         
 	kubectl delete pvc --all -n escolalms  
-	-rf -f k8s/*.yaml
+	kubectl delete pv --all -n escolalms  
+	-rm -f k8s/*.yaml
 
 k8s-apply: 
 	kubectl apply -f k8s
