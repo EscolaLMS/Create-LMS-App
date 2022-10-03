@@ -9,7 +9,52 @@ Windows with WSL should work fine, yet there might be some issues
 
 - please [do share them](https://github.com/EscolaLMS/Create-LMS-App/issues/new) with us.
 
-## Environment
+## Environmental variables
+
+### Laravel specific. `LARAVEL_PREFIX`
+
+After container is initialized, it [looks for variables](https://github.com/EscolaLMS/API/blob/develop/docker/envs/envs.php) with this prefix then replace current ones in `.env` file
+
+Example
+
+```yaml
+LARAVEL_APP_ENV: "production"
+LARAVEL_APP_KEY: "base64:vw6G2uP8LV22haEERtzr5yDCBraLrMwbxlbSJDA97uk="
+LARAVEL_APP_DEBUG: "false"
+LARAVEL_APP_LOG: "errorlog"
+```
+
+will result in
+
+```bash
+Replacing .env file APP_ENV from local to production
+Replacing .env file APP_KEY from base64:pveos6JL8iCwO3MbzoyQpNx6TETMYuUpfZ18CDKl6Cw= to base64:vw6G2uP8LV22haEERtzr5yDCBraLrMwbxlbSJDA97uk=
+Replacing .env file APP_DEBUG from true to false
+Replacing .env file APP_LOG_LEVEL from debug to debug
+```
+
+### URLs
+
+You can use this following variables when calling bash or makefile task
+
+```bash
+APP_URL="${APP_URL:-http://api.wellms.localhost}"
+ADMIN_URL="${ADMIN_URL:-http://admin.wellms.localhost}"
+FRONT_URL="${FRONT_URL:-http://app.wellms.localhost}"
+MAILHOG_URL="${MAILHOG_URL:-http://mailhog.wellms.localhost}"
+```
+
+Example
+
+```bash
+APP_URL=http://my-super-api.localhost make init
+```
+
+or
+
+```bash
+APP_URL=http://my-super-api.localhost make k8s-rebuild
+```
 
 ## Kubernetes
 

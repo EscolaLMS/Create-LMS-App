@@ -34,8 +34,6 @@ services:
     networks:
       - escola_lms
 
-  # NOTE binding emptyfile.conf disable supervisor service
-
   api:
     user: $DOCKER_USER
     image: escolalms/api:latest
@@ -43,41 +41,14 @@ services:
       - escola_lms
     depends_on:
       - postgres
-
     volumes:
-      #      - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
-      #      - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
-      #      - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
       - ./storage:/var/www/html/storage
       - ./.env:/var/www/html/.env
-
-  #   horizon:
-  #     image: escolalms/api:latest
-  #     networks:
-  #       - escola_lms
-  #    depends_on: 
-  #      postgres:
-  #        condition: service_healthy
-  #     volumes:
-  # #     - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
-  #       - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
-  #       - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
-  #       - ./storage:/var/www/html/storage
-  #       - ./.env:/var/www/html/.env
-
-  #   scheduler:
-  #     image: escolalms/api:latest
-  #     networks:
-  #       - escola_lms
-  #    depends_on: 
-  #      postgres:
-  #        condition: service_healthy
-  #     volumes:
-  #       - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
-  # #      - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
-  #       - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
-  #       - ./storage:/var/www/html/storage
-  #       - ./.env:/var/www/html/.env      
+    environment:
+    - DISBALE_PHP_FPM=false
+    - DISBALE_NGINX=false
+    - DISBALE_HORIZON=false
+    - DISBALE_SCHEDULER=false
 
   postgres:
     image: postgres:12
@@ -121,6 +92,3 @@ services:
     logging:
       driver: "none" # disable saving logs
 
-#    ports:
-#      - 1025:1025 # smtp server
-#      - 8025:8025 # web ui
