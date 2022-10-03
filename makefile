@@ -98,7 +98,9 @@ k8s-delete:
 	kubectl delete all --all -n escolalms         
 	kubectl delete pvc --all -n escolalms  
 	kubectl delete pv --all -n escolalms  
+	kubectl delete storageclass --all -n escolalms  
 	-rm -f k8s/*.yaml
+	-minikube ssh "sudo rm -rf /var/lib/postgresql/data"
 
 k8s-apply: 
 	kubectl apply -f k8s

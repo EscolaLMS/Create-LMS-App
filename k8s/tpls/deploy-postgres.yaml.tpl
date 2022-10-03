@@ -24,13 +24,13 @@ spec:
           envFrom:
             - configMapRef:
                 name: laravel-config
-#          volumeMounts:
-#            - mountPath: /var/lib/postgresql/data
-#              name: escolalms-postgres-persistent-storage
-#      volumes:
-#        - name: escolalms-postgres-persistent-storage
-#          persistentVolumeClaim:
-#            claimName: escolalms-postgres-pv-claim
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: escolalms-postgres-persistent-storage
+      volumes:
+        - name: escolalms-postgres-persistent-storage
+          persistentVolumeClaim:
+            claimName: escolalms-postgres-pv-claim
 
 ---
 apiVersion: v1
@@ -58,7 +58,7 @@ metadata:
     labels:
         type: local
 spec:
-    storageClassName: ""
+    storageClassName: "standard-rwo"
     capacity:
         storage: 5Gi
     accessModes:
@@ -72,11 +72,10 @@ metadata:
     name: escolalms-postgres-pv-claim
     namespace: escolalms
 spec:
-    storageClassName: ""
+    storageClassName: "standard-rwo"
     accessModes:
         - ReadWriteOnce
     resources:
         requests:
             storage: 5Gi
 ---
-
