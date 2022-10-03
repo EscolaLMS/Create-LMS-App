@@ -1,8 +1,93 @@
 # Create LMS APP
 
-Development version
+This package contains all the resources need to install Wellms Headless LMS from docker-images
 
 ## Installation on MacOs or Linux
+
+Below are instruction on how to install Wellms on MacOs or Linux.
+Windows with WSL should work fine, yet there might be some issues
+
+- please [do share them](https://github.com/EscolaLMS/Create-LMS-App/issues/new) with us.
+
+## Environmental variables
+
+### Laravel specific. `LARAVEL_PREFIX`
+
+After container is initialized, it [looks for variables](https://github.com/EscolaLMS/API/blob/develop/docker/envs/envs.php) with this prefix then replace current ones in `.env` file
+
+Example
+
+```yaml
+LARAVEL_APP_ENV: "production"
+LARAVEL_APP_KEY: "base64:vw6G2uP8LV22haEERtzr5yDCBraLrMwbxlbSJDA97uk="
+LARAVEL_APP_DEBUG: "false"
+LARAVEL_APP_LOG: "errorlog"
+```
+
+will result in
+
+```bash
+Replacing .env file APP_ENV from local to production
+Replacing .env file APP_KEY from base64:pveos6JL8iCwO3MbzoyQpNx6TETMYuUpfZ18CDKl6Cw= to base64:vw6G2uP8LV22haEERtzr5yDCBraLrMwbxlbSJDA97uk=
+Replacing .env file APP_DEBUG from true to false
+Replacing .env file APP_LOG_LEVEL from debug to debug
+```
+
+### URLs
+
+You can use this following variables when calling bash or makefile task
+
+```bash
+APP_URL="${APP_URL:-http://api.wellms.localhost}"
+ADMIN_URL="${ADMIN_URL:-http://admin.wellms.localhost}"
+FRONT_URL="${FRONT_URL:-http://app.wellms.localhost}"
+MAILHOG_URL="${MAILHOG_URL:-http://mailhog.wellms.localhost}"
+```
+
+Example
+
+```bash
+APP_URL=http://my-super-api.localhost make init
+```
+
+or
+
+```bash
+APP_URL=http://my-super-api.localhost make k8s-rebuild
+```
+
+## Kubernetes
+
+### Without `helm`
+
+All `yaml` file templates are inside [`k8s/tpls`](k8s/tpls) folder
+
+You can either generate yaml by calling bash script `cd k8s && bash generate.sh`
+or by calling makefile job `make
+or but setting all config manually
+
+Once `yaml` files are in `k8s` folder run `kubectl apply -f k8s`
+
+#### Custom domain
+
+Those are env variables you can set while running generate
+
+```bash
+APP_URL="${APP_URL:-http://api.wellms.localhost}"
+ADMIN_URL="${ADMIN_URL:-http://admin.wellms.localhost}"
+FRONT_URL="${FRONT_URL:-http://app.wellms.localhost}"
+MAILHOG_URL="${MAILHOG_URL:-http://mailhog.wellms.localhost}"
+```
+
+#### Makefile jobs
+
+### With `helm`
+
+`WIP`
+
+## From docker container images
+
+Below are instructions how to install Wellms from [https://hub.docker.com/search?q=escolalms](docker images) in various ways.
 
 ### Requirements
 
@@ -29,9 +114,11 @@ run `make init` shell script
 - `Docker` installed (https://docs.docker.com/desktop/windows/install/) and configured to use WSL
 - `make` available in PowerShell (for example, you can install `Chocolatey` https://chocolatey.org/install and then install `make` using it)
 
-*Recommended*: use Windows Terminal (https://apps.microsoft.com/store/detail/windows-terminal/) and latest PowerShell (https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2)
+_Recommended_: use Windows Terminal (https://apps.microsoft.com/store/detail/windows-terminal/) and latest PowerShell (https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2)
 
 ### Installation from source
+
+The `source` means source code of this repository, not the actual Wellms components. Tasks describes below will install docker containers.
 
 - Clone this repository
 - Run `make init` in PowerShell (and not in WSL shell, because it will lead to problems with binding Postgres data volume for persistence)
@@ -67,38 +154,42 @@ All of above including nginx are served by `supervisor`, definition files are [l
 You can scale this by setting each process into separate image container, just by amending `docker-compose.yml` in the following way
 
 ```yml
-# NOTE binding emptyfile.conf disable supervisor service
-
 api:
   image: escolalms/api:latest
   networks:
     - escola_lms
   volumes:
-    - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
-    - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
-    #      - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
     - ./storage:/var/www/html/storage
     - ./.env:/var/www/html/.env
+  environment:
+    - DISBALE_PHP_FPM=false
+    - DISBALE_NGINX=false
+    - DISBALE_HORIZON=true
+    - DISBALE_SCHEDULER=true
 
 horizon:
   image: escolalms/api:latest
   networks:
     - escola_lms
   volumes:
-    #     - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
-    - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
-    - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
     - ./storage:/var/www/html/storage
     - ./.env:/var/www/html/.env
+  environment:
+    - DISBALE_PHP_FPM=true
+    - DISBALE_NGINX=true
+    - DISBALE_HORIZON=false
+    - DISBALE_SCHEDULER=true
 
 scheduler:
   image: escolalms/api:latest
   networks:
     - escola_lms
   volumes:
-    - ./emptyfile.conf:/etc/supervisor/custom.d/horizon.conf
-    #      - ./emptyfile.conf:/etc/supervisor/custom.d/scheduler.conf
-    - ./emptyfile.conf:/etc/supervisor/custom.d/nginx.conf
     - ./storage:/var/www/html/storage
     - ./.env:/var/www/html/.env
+  environment:
+    - DISBALE_PHP_FPM=true
+    - DISBALE_NGINX=true
+    - DISBALE_HORIZON=true
+    - DISBALE_SCHEDULER=false
 ```

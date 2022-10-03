@@ -1,16 +1,14 @@
 #!/bin/bash
 
 # generate random secure passwords
-DBPASS_RND=$(openssl rand -base64 12);
-REDISPASS_RND=$(openssl rand -base64 12);
+DB_PASSWORD=$(openssl rand -hex 12);
+REDIS_PASSWORD=$(openssl rand -hex 12);
 
 # generated 
 APP_URL="${APP_URL:-http://api.wellms.localhost}"  
 ADMIN_URL="${ADMIN_URL:-http://admin.wellms.localhost}"  
 FRONT_URL="${FRONT_URL:-http://app.wellms.localhost}"  
 MAILHOG_URL="${MAILHOG_URL:-http://mailhog.wellms.localhost}"  
-
-
 
 # fetch just domain from URLs 
 FRONT_URL_DOMAIN="$(echo "$FRONT_URL" | awk -F/ '{print $3}')"
@@ -20,9 +18,9 @@ MAILHOG_URL_DOMAIN="$(echo "$MAILHOG_URL" | awk -F/ '{print $3}')"
 
 # create tmp yaml file to work on 
 cp docker-compose.yml.tpl docker-compose.yml.tpl.tmp
-YAML=$(docker run -i --rm mikefarah/yq eval '.services.postgres.environment[2] = "POSTGRES_PASSWORD='${DBPASS_RND}'"' < docker-compose.yml.tpl.tmp)
+YAML=$(docker run -i --rm mikefarah/yq eval '.services.postgres.environment[2] = "POSTGRES_PASSWORD='${DB_PASSWORD}'"' < docker-compose.yml.tpl.tmp)
 echo "$YAML" > docker-compose.yml.tpl.tmp
-YAML=$(docker run -i --rm mikefarah/yq eval '.services.redis.command = "redis-server --requirepass '${REDISPASS_RND}'"' < docker-compose.yml.tpl.tmp)
+YAML=$(docker run -i --rm mikefarah/yq eval '.services.redis.command = "redis-server --requirepass '${REDIS_PASSWORD}'"' < docker-compose.yml.tpl.tmp)
 echo "$YAML" > docker-compose.yml.tpl.tmp
 YAML=$(docker run -i --rm mikefarah/yq eval '.services.app.environment[0] = "API_URL='${APP_URL}'"' < docker-compose.yml.tpl.tmp)
 echo "$YAML" > docker-compose.yml.tpl.tmp

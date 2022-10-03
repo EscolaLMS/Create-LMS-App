@@ -88,3 +88,21 @@ success:
 init: generate-credentials docker-pull docker-up dumpautoload generate-new-keys-no-db migrate generate-new-keys-db permissions-seeder storage-links content-rich-seeder restart success 
 
 refresh: flush-postgres init
+
+# k8s 
+
+k8s-generate-yaml:
+	cd k8s && ./generate.sh
+
+k8s-delete: 
+	kubectl delete all --all -n escolalms         
+	kubectl delete pvc --all -n escolalms  
+	kubectl delete pv --all -n escolalms  
+	kubectl delete storageclass --all -n escolalms  
+	-rm -f k8s/*.yaml
+	-minikube ssh "sudo rm -rf /var/lib/postgresql/data"
+
+k8s-apply: 
+	kubectl apply -f k8s
+
+k8s-rebuild: k8s-delete k8s-generate-yaml k8s-apply
