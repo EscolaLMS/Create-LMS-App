@@ -33,8 +33,12 @@ spec:
         - configMapRef:
             name: laravel-config
         volumeMounts:
-          - name: storage
-            mountPath: /var/www/html/storage
+            -   name: escolalms-backend-persistent-storage
+                mountPath: /var/www/html/storage
+    volumes:
+        -   name: escolalms-backend-persistent-storage
+            persistentVolumeClaim:
+                claimName:  escolalms-backend-pv-claim
 ---
 apiVersion: v1
 kind: Service

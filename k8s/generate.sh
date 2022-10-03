@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 # generate random secure passwords
 DB_PASSWORD=$(openssl rand -hex 12);
 REDIS_PASSWORD=$(openssl rand -hex 12);
@@ -25,6 +27,8 @@ cp tpls/deploy-postgres.yaml.tpl deploy-postgres.yaml
 cp tpls/deploy-redis.yaml.tpl deploy-redis.yaml
 cp tpls/deploy-scheduler-queue.yaml.tpl deploy-scheduler-queue.yaml
 cp tpls/ingress.yaml.tpl ingress.yaml
+cp tpls/volume-backend.yaml.tpl volume-backend.yaml
+
 
 # FILE k8s/configmap.yaml
 
