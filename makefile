@@ -106,3 +106,5 @@ k8s-apply:
 	kubectl apply -f k8s
 
 k8s-rebuild: k8s-delete k8s-generate-yaml k8s-apply
+
+k8s-init: k8s-generate-yaml k8s-apply
