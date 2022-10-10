@@ -79,11 +79,41 @@ FRONT_URL="${FRONT_URL:-http://app.wellms.localhost}"
 MAILHOG_URL="${MAILHOG_URL:-http://mailhog.wellms.localhost}"
 ```
 
-#### Makefile jobs
+### First run
+Required dependencies:
+- `docker`
+- `k8s`
+- `minikube`
+- `k9s` or whatever to view your kubernetes resources (e.g. `Lens`)
+
+#### Mac OS
+Run makefile commands:
+- `make minikube-init`
+- `make k8s-init`
+- `make minikube-tunnel`
+- wait a minute and enjoy the Wellms :)
+
+### Rebuild existing instance
+- `make minikube-force-delete`
+- `make k8s-rebuild`
+- `make minikube-tunnel`
+
+
+#### Windows 
+`TODO`
+
 
 ### With `helm`
 
 `WIP`
+
+
+### Available Wellms resources:
+- API `api.wellms.localhost`
+- Front app `app.wellms.localhost`
+- Admin panel `admin.wellms.localhost`
+- Mailhog `mailhog.wellms.localhost`
+
 
 ## From docker container images
 
