@@ -18,6 +18,7 @@ ADMIN_URL_DOMAIN="$(echo "$ADMIN_URL" | awk -F/ '{print $3}')"
 APP_URL_DOMAIN="$(echo "$APP_URL" | awk -F/ '{print $3}')"
 MAILHOG_URL_DOMAIN="$(echo "$MAILHOG_URL" | awk -F/ '{print $3}')"
 
+cp tpls/namespace.yaml.tpl namespace.yaml
 cp tpls/configmap.yaml.tpl configmap.yaml
 cp tpls/deploy-admin.yaml.tpl deploy-admin.yaml
 cp tpls/deploy-backend.yaml.tpl deploy-backend.yaml

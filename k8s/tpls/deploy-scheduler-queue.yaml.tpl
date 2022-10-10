@@ -19,7 +19,7 @@ spec:
       - name: escolalms-scheduler-queue
         image: escolalms/api:latest
         command: ["/bin/sh"]
-        args: ["-c", "/docker-entrypoint.sh && chown -R devilbox:devilbox /var/www/html  &&  /usr/bin/supervisord -c /etc/supervisor/supervisord.conf"]
+        args: ["-c", "/docker-entrypoint.sh && php /var/www/html/docker/envs/envs.php && chown -R devilbox:devilbox /var/www/html  &&  /usr/bin/supervisord -c /etc/supervisor/supervisord.conf"]
         imagePullPolicy: Always
         env:
         - name: DISBALE_PHP_FPM

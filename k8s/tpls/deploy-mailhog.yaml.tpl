@@ -43,9 +43,18 @@ spec:
       port: 8025
       protocol: TCP
       targetPort: http
-     
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: escolalms-mailhog
+  namespace: escolalms
+spec:
+  selector:
+    app: escolalms-mailhog
+  type: ClusterIP
+  ports:
     - name: smtp
       port: 1025
       protocol: TCP
       targetPort: smtp
-     
