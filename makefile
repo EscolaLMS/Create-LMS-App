@@ -89,6 +89,25 @@ init: generate-credentials docker-pull docker-up dumpautoload generate-new-keys-
 
 refresh: flush-postgres init
 
+# minikube
+
+minikube-start:
+	minikube start
+#	minikube start --memory 8192 --cpus 4
+
+minikube-addons:
+	minikube addons enable ingress
+	minikube addons enable ingress-dns
+
+minikube-tunnel:
+	minikube tunnel
+
+minikube-force-delete:
+	minikube delete
+	minikube start --memory 8192 --cpus 4
+
+minikube-init: minikube-start minikube-addons
+
 # k8s 
 
 k8s-generate-yaml:
@@ -103,8 +122,21 @@ k8s-delete:
 	-minikube ssh "sudo rm -rf /var/lib/postgresql/data"
 
 k8s-apply: 
-	kubectl apply -f k8s
+	kubectl apply -f k8s/namespace.yaml
+	kubectl apply -f k8s/configmap.yaml
+	kubectl apply -f k8s/deploy-admin.yaml
+	kubectl apply -f k8s/deploy-backend.yaml
+	kubectl apply -f k8s/deploy-frontend.yaml
+	kubectl apply -f k8s/deploy-mailhog.yaml
+	kubectl apply -f k8s/deploy-postgres.yaml
+	kubectl apply -f k8s/deploy-redis.yaml
+	kubectl apply -f k8s/deploy-scheduler-queue.yaml
+	kubectl apply -f k8s/volume-backend.yaml
+	kubectl apply -f k8s/ingress.yaml
 
 k8s-rebuild: k8s-delete k8s-generate-yaml k8s-apply
 
 k8s-init: k8s-generate-yaml k8s-apply
+
+#k8s-rebuild: minikube-init k8s-delete k8s-generate-yaml k8s-apply minikube-tunel
+#k8s-init: minikube-init k8s-generate-yaml k8s-apply minikube-tunel
