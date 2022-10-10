@@ -104,7 +104,8 @@ minikube-tunnel:
 
 minikube-force-delete:
 	minikube delete
-	minikube start --memory 8192 --cpus 4
+	minikube start
+#	minikube start --memory 8192 --cpus 4
 
 minikube-init: minikube-start minikube-addons
 
