@@ -92,3 +92,8 @@ services:
     logging:
       driver: "none" # disable saving logs
 
+  reportbro:
+    networks:
+      - escola_lms
+    image: escolalms/reportbro-server:latest
+
