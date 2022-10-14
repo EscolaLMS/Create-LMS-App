@@ -24,3 +24,6 @@ $MAILHOG_URL_DOMAIN  {
 	reverse_proxy mailhog:8025
 }
 
+$REPORTBRO_URL_DOMAIN  {
+	reverse_proxy reportbro:8000
+}

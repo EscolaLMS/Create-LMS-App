@@ -9,12 +9,14 @@ APP_URL="${APP_URL:-http://api.wellms.localhost}"
 ADMIN_URL="${ADMIN_URL:-http://admin.wellms.localhost}"  
 FRONT_URL="${FRONT_URL:-http://app.wellms.localhost}"  
 MAILHOG_URL="${MAILHOG_URL:-http://mailhog.wellms.localhost}"  
+REPORTBRO_URL="${REPORTBRO_URL:-http://reportbro.wellms.localhost}"  
 
 # fetch just domain from URLs 
 FRONT_URL_DOMAIN="$(echo "$FRONT_URL" | awk -F/ '{print $3}')"
 ADMIN_URL_DOMAIN="$(echo "$ADMIN_URL" | awk -F/ '{print $3}')"
 APP_URL_DOMAIN="$(echo "$APP_URL" | awk -F/ '{print $3}')"
 MAILHOG_URL_DOMAIN="$(echo "$MAILHOG_URL" | awk -F/ '{print $3}')"
+REPORTBRO_URL_DOMAIN="$(echo "$REPORTBRO_URL" | awk -F/ '{print $3}')"
 
 # create tmp yaml file to work on 
 cp docker-compose.yml.tpl docker-compose.yml.tpl.tmp
