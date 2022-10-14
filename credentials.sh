@@ -9,7 +9,7 @@ APP_URL="${APP_URL:-http://api.wellms.localhost}"
 ADMIN_URL="${ADMIN_URL:-http://admin.wellms.localhost}"  
 FRONT_URL="${FRONT_URL:-http://app.wellms.localhost}"  
 MAILHOG_URL="${MAILHOG_URL:-http://mailhog.wellms.localhost}"  
-REPORTBRO_URL="${MAILHOG_URL:-http://reportbro.wellms.localhost}"  
+REPORTBRO_URL="${REPORTBRO_URL:-http://reportbro.wellms.localhost}"  
 
 # fetch just domain from URLs 
 FRONT_URL_DOMAIN="$(echo "$FRONT_URL" | awk -F/ '{print $3}')"
