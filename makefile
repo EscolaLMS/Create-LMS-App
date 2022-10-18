@@ -1,5 +1,11 @@
 export DOCKER_USER=$(id -u)
 
+APP_URL ?= "http://api.wellms.localhost"
+ADMIN_URL ?= "http://admin.wellms.localhost"  
+FRONT_URL ?= "http://app.wellms.localhost"  
+MAILHOG_URL ?= "http://mailhog.wellms.localhost"  
+REPORTBRO_URL ?= "http://reportbro.wellms.localhost"  
+
 bash:
 	docker-compose exec -u 1000 api bash
 
@@ -72,20 +78,17 @@ flush-postgres:
 	- rm -rf docker/postgres-data	
 	- docker-compose down
 
-
 success: 
 	- @echo "Wellms is installed succesfully"
-	- @echo "Admin panel http://admin.wellms.localhost"
-	- @echo "Demo http://app.wellms.localhost"
-	- @echo "API REST http://api.wellms.localhost/api/documentation"
+	- @echo "Admin panel $(ADMIN_URL)"
+	- @echo "Demo $(FRONT_URL)"
+	- @echo "API REST $(APP_URL)/api/documentation"
 	- @echo "Credentials for admin are username: admin@escolalms.com password: secret"
 	- @echo "Credentials for student are username: student@escolalms.com password: secret"
-	- @echo "Emails are not sent. See http://mailhog.wellms.localhost mailhog for details"
-	- @echo "All productions changes must be set in .env file"
+	- @echo "Emails are not sent. See $(MAILHOG_URL) mailhog for details"
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
-	- @echo "if you need to attach your domain just change CaddyFiles"
 	
-init: generate-credentials docker-pull docker-up dumpautoload generate-new-keys-no-db migrate generate-new-keys-db permissions-seeder storage-links content-rich-seeder restart success 
+init: generate-credentials docker-pull docker-up dumpautoload generate-new-keys-no-db migrate generate-new-keys-db permissions-seeder storage-links content-seeder restart success 
 
 refresh: flush-postgres init
 

@@ -80,40 +80,43 @@ MAILHOG_URL="${MAILHOG_URL:-http://mailhog.wellms.localhost}"
 ```
 
 ### First run
+
 Required dependencies:
+
 - `docker`
 - `k8s`
 - `minikube`
 - `k9s` or whatever to view your kubernetes resources (e.g. `Lens`)
 
 #### Mac OS
+
 Run makefile commands:
+
 - `make minikube-init`
 - `make k8s-init`
 - `make minikube-tunnel`
 - wait a minute and enjoy the Wellms :)
 
 ### Rebuild existing instance
+
 - `make minikube-force-delete`
 - `make k8s-rebuild`
 - `make minikube-tunnel`
 
+#### Windows
 
-#### Windows 
 `TODO`
-
 
 ### With `helm`
 
 `WIP`
 
-
 ### Available Wellms resources:
+
 - API `api.wellms.localhost`
 - Front app `app.wellms.localhost`
 - Admin panel `admin.wellms.localhost`
 - Mailhog `mailhog.wellms.localhost`
-
 
 ## From docker container images
 
@@ -170,6 +173,12 @@ Once everything is installed (takes a while)
 ## Custom domains
 
 - Amends [Caddyfile](Caddyfile) referring to the [official documentation](https://caddyserver.com/docs/caddyfile)
+
+there is a `credentials.sh` script to generate config files, example
+
+```bash
+APP_URL=https://api.escolalms.com ADMIN_URL=https://admin.escolalms.com FRONT_URL=https://demo.escolalms.com ./credentials.sh MAILHOG_URL=https://mailhog.escolalms.com REPORTBRO_URL=https://reportbro.escolalms.com ./credentials.sh
+```
 
 ## Scaling php-fpm, Horizon & Scheduler.
 
