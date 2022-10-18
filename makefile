@@ -57,7 +57,7 @@ storage-links:
 # creates a backup file into `data` folder
 # TODO this should be called by user 1000 but there is an issue with volume 
 backup-postgres:
-	bash credentials.sh
+	bash import.sh
 
 # imports database backup from data folder 
 # make import BACKUP_FILE=backup-2020-09-15-14:49:22.sql 
