@@ -8,3 +8,5 @@ vendor
 *.yml
 .DS_Store
 Caddyfile
+
+kub.sh

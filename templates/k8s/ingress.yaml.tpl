@@ -45,3 +45,14 @@ spec:
               name: escolalms-mailhog-service
               port:
                 number: 8025
+
+  - host: reportbro.localhost
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: escolalms-reportbro-service
+              port:
+                number: 8000            

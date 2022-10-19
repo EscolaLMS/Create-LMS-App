@@ -10,7 +10,7 @@ bash:
 	docker-compose exec -u 1000 api bash
 
 generate-credentials:	
-	bash credentials.sh
+	bash ./scripts/credentials.sh
 
 dumpautoload: 
 	docker-compose exec -T -u 1000 api bash -c "composer dumpautoload"
@@ -63,7 +63,7 @@ storage-links:
 # creates a backup file into `data` folder
 # TODO this should be called by user 1000 but there is an issue with volume 
 backup-postgres:
-	bash import.sh
+	bash scripts/import.sh
 
 # imports database backup from data folder 
 # make import BACKUP_FILE=backup-2020-09-15-14:49:22.sql 
@@ -72,7 +72,7 @@ backup-postgres:
 #import-postgres: backup-postgres
 
 import-postgres: 
-	bash import.sh
+	bash scripts/import.sh
 
 flush-postgres: 
 	- rm -rf docker/postgres-data	
@@ -115,7 +115,7 @@ minikube-init: minikube-start minikube-addons
 # k8s 
 
 k8s-generate-yaml:
-	cd k8s && ./generate.sh
+	./scrtips/generate.sh
 
 k8s-delete: 
 	kubectl delete all --all -n escolalms         
