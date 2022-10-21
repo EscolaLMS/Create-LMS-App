@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: escolalms-reportbro
-        image: escolalms/reportbro:latest
+        image: escolalms/reportbro-server:latest
         imagePullPolicy: Always
         envFrom:
         - configMapRef:

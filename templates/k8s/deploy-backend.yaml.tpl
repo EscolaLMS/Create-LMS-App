@@ -14,12 +14,6 @@ spec:
         app: escolalms-backend
         component: backend
     spec:
-      
-      volumes:
-      - name: storage
-        hostPath:
-          path: "/mnt/escolalms/storage"
-
       containers:
       - name: escolalms-backend
         image: escolalms/api:latest
@@ -37,12 +31,25 @@ spec:
         ports:
           - containerPort: 80
         volumeMounts:
+            - name: nginx-conf
+              mountPath: /etc/nginx/conf.d/php.conf 
+              subPath: nginx.conf
+              readOnly: true
             -   name: escolalms-backend-persistent-storage
                 mountPath: /var/www/html/storage
       volumes:
-          -   name: escolalms-backend-persistent-storage
-              persistentVolumeClaim:
-                  claimName:  escolalms-backend-pv-claim
+          - name: nginx-conf
+            configMap:
+              name: nginx-conf
+              items:
+                - key: nginx.conf
+                  path: nginx.conf
+          - name: storage
+            hostPath:
+              path: "/mnt/escolalms/storage"
+          - name: escolalms-backend-persistent-storage
+            persistentVolumeClaim:
+              claimName:  escolalms-backend-pv-claim
                              
 ---
 apiVersion: v1

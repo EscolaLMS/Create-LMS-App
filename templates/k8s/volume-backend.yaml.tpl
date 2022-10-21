@@ -27,4 +27,3 @@ spec:
     resources:
         requests:
             storage: 5Gi
----

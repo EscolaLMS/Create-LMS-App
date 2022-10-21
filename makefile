@@ -6,6 +6,9 @@ FRONT_URL ?= "http://app.wellms.localhost"
 MAILHOG_URL ?= "http://mailhog.wellms.localhost"  
 REPORTBRO_URL ?= "http://reportbro.wellms.localhost"  
 
+NAMESPACE ?= "escolalms"
+
+
 bash:
 	docker-compose exec -u 1000 api bash
 
@@ -115,23 +118,25 @@ minikube-init: minikube-start minikube-addons
 # k8s 
 
 k8s-generate-yaml:
-	./scrtips/generate.sh
+	./scripts/generate-k8s.sh
 
 k8s-delete: 
-	kubectl delete all --all -n escolalms         
-	kubectl delete pvc --all -n escolalms  
-	kubectl delete pv --all -n escolalms  
-	kubectl delete storageclass --all -n escolalms  
+	kubectl delete all --all -n $(NAMESPACE)         
+	kubectl delete pvc --all -n $(NAMESPACE)     
+	kubectl delete pv --all -n $(NAMESPACE)       
+	kubectl delete storageclass --all -n $(NAMESPACE)       
 	-rm -f k8s/*.yaml
 	-minikube ssh "sudo rm -rf /var/lib/postgresql/data"
 
 k8s-apply: 
 	kubectl apply -f k8s/namespace.yaml
 	kubectl apply -f k8s/configmap.yaml
+#	kubectl apply -f k8s/configmap-nginx.yaml
 	kubectl apply -f k8s/deploy-admin.yaml
 	kubectl apply -f k8s/deploy-backend.yaml
 	kubectl apply -f k8s/deploy-frontend.yaml
 	kubectl apply -f k8s/deploy-mailhog.yaml
+	kubectl apply -f k8s/deploy-reportbro.yaml
 	kubectl apply -f k8s/deploy-postgres.yaml
 	kubectl apply -f k8s/deploy-redis.yaml
 	kubectl apply -f k8s/deploy-scheduler-queue.yaml
