@@ -1,10 +1,19 @@
 export DOCKER_USER=$(id -u)
 
+APP_URL ?= "http://api.wellms.localhost"
+ADMIN_URL ?= "http://admin.wellms.localhost"  
+FRONT_URL ?= "http://app.wellms.localhost"  
+MAILHOG_URL ?= "http://mailhog.wellms.localhost"  
+REPORTBRO_URL ?= "http://reportbro.wellms.localhost"  
+
+NAMESPACE ?= "escolalms"
+
+
 bash:
 	docker-compose exec -u 1000 api bash
 
 generate-credentials:	
-	bash credentials.sh
+	bash ./scripts/credentials.sh
 
 dumpautoload: 
 	docker-compose exec -T -u 1000 api bash -c "composer dumpautoload"
@@ -57,7 +66,7 @@ storage-links:
 # creates a backup file into `data` folder
 # TODO this should be called by user 1000 but there is an issue with volume 
 backup-postgres:
-	bash import.sh
+	bash scripts/import.sh
 
 # imports database backup from data folder 
 # make import BACKUP_FILE=backup-2020-09-15-14:49:22.sql 
@@ -66,26 +75,23 @@ backup-postgres:
 #import-postgres: backup-postgres
 
 import-postgres: 
-	bash import.sh
+	bash scripts/import.sh
 
 flush-postgres: 
 	- rm -rf docker/postgres-data	
 	- docker-compose down
 
-
 success: 
 	- @echo "Wellms is installed succesfully"
-	- @echo "Admin panel http://admin.wellms.localhost"
-	- @echo "Demo http://app.wellms.localhost"
-	- @echo "API REST http://api.wellms.localhost/api/documentation"
+	- @echo "Admin panel $(ADMIN_URL)"
+	- @echo "Demo $(FRONT_URL)"
+	- @echo "API REST $(APP_URL)/api/documentation"
 	- @echo "Credentials for admin are username: admin@escolalms.com password: secret"
 	- @echo "Credentials for student are username: student@escolalms.com password: secret"
-	- @echo "Emails are not sent. See http://mailhog.wellms.localhost mailhog for details"
-	- @echo "All productions changes must be set in .env file"
+	- @echo "Emails are not sent. See $(MAILHOG_URL) mailhog for details"
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
-	- @echo "if you need to attach your domain just change CaddyFiles"
 	
-init: generate-credentials docker-pull docker-up dumpautoload generate-new-keys-no-db migrate generate-new-keys-db permissions-seeder storage-links content-rich-seeder restart success 
+init: generate-credentials docker-pull docker-up dumpautoload generate-new-keys-no-db migrate generate-new-keys-db permissions-seeder storage-links content-seeder restart success 
 
 refresh: flush-postgres init
 
@@ -112,13 +118,13 @@ minikube-init: minikube-start minikube-addons
 # k8s 
 
 k8s-generate-yaml:
-	cd k8s && ./generate.sh
+	./scripts/generate-k8s.sh
 
 k8s-delete: 
-	kubectl delete all --all -n escolalms         
-	kubectl delete pvc --all -n escolalms  
-	kubectl delete pv --all -n escolalms  
-	kubectl delete storageclass --all -n escolalms  
+	kubectl delete all --all -n $(NAMESPACE)         
+	kubectl delete pvc --all -n $(NAMESPACE)     
+	kubectl delete pv --all -n $(NAMESPACE)       
+	kubectl delete storageclass --all -n $(NAMESPACE)       
 	-rm -f k8s/*.yaml
 	-minikube ssh "sudo rm -rf /var/lib/postgresql/data"
 
@@ -129,6 +135,7 @@ k8s-apply:
 	kubectl apply -f k8s/deploy-backend.yaml
 	kubectl apply -f k8s/deploy-frontend.yaml
 	kubectl apply -f k8s/deploy-mailhog.yaml
+	kubectl apply -f k8s/deploy-reportbro.yaml
 	kubectl apply -f k8s/deploy-postgres.yaml
 	kubectl apply -f k8s/deploy-redis.yaml
 	kubectl apply -f k8s/deploy-scheduler-queue.yaml
