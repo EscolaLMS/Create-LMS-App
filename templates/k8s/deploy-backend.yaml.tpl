@@ -31,19 +31,9 @@ spec:
         ports:
           - containerPort: 80
         volumeMounts:
-            - name: nginx-conf
-              mountPath: /etc/nginx/conf.d/php.conf 
-              subPath: nginx.conf
-              readOnly: true
             -   name: escolalms-backend-persistent-storage
                 mountPath: /var/www/html/storage
-      volumes:
-          - name: nginx-conf
-            configMap:
-              name: nginx-conf
-              items:
-                - key: nginx.conf
-                  path: nginx.conf
+      volumes:        
           - name: storage
             hostPath:
               path: "/mnt/escolalms/storage"

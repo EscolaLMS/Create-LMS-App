@@ -131,7 +131,6 @@ k8s-delete:
 k8s-apply: 
 	kubectl apply -f k8s/namespace.yaml
 	kubectl apply -f k8s/configmap.yaml
-#	kubectl apply -f k8s/configmap-nginx.yaml
 	kubectl apply -f k8s/deploy-admin.yaml
 	kubectl apply -f k8s/deploy-backend.yaml
 	kubectl apply -f k8s/deploy-frontend.yaml
