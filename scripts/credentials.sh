@@ -36,7 +36,7 @@ rm -f docker-compose.yml .env templates/docker-compose.yml.tpl.tmp
 eval "cat <<< \"$(<templates/.env.tpl)\"" > .env
 
 ## TODO if domain is local use tls self_signed in caddy
-eval "cat <<< \"$(<templates/Caddyfile.tpl)\"" > Caddyfile
+eval "cat <<< \"$(<templates/Caddyfile.http.tpl)\"" > Caddyfile
 
 echo "$YAML" > docker-compose.yml
 
