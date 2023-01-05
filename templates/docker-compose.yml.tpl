@@ -40,7 +40,8 @@ services:
     networks:
       - escola_lms
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     volumes:
       - ./storage:/var/www/html/storage
       - ./.env:/var/www/html/.env
