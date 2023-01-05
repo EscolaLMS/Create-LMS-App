@@ -24,15 +24,11 @@ services:
     image: escolalms/demo:latest
     environment:
       - API_URL=http://api.wellms.localhost
-    networks:
-      - escola_lms
 
   admin:
     image: escolalms/admin:latest
     environment:
       - API_URL=http://api.wellms.localhost
-    networks:
-      - escola_lms
 
   api:
     user: $DOCKER_USER
@@ -45,8 +41,6 @@ services:
     volumes:
       - ./storage:/var/www/html/storage
       - ./.env:/var/www/html/.env
-      - ./nginx.conf:/etc/nginx/conf.d/php.conf
-      - ./supervisord.conf:/etc/supervisor/supervisord.conf
     environment:
     - DISBALE_PHP_FPM=false
     - DISBALE_NGINX=false
