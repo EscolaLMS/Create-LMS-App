@@ -2,6 +2,10 @@
 
 This package contains all the resources need to install Wellms Headless LMS from docker-images
 
+## TLDR
+
+Run `npx --package=@escolalms/cla lms`
+
 ## Installation on MacOs or Linux
 
 Below are instruction on how to install Wellms on MacOs or Linux.
