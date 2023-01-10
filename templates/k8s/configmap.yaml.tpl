@@ -48,3 +48,11 @@ data:
   LARAVEL_MAIL_PASSWORD: "null"
   LARAVEL_MAIL_ENCRYPTION: ""
 
+  # Default values for telemetry and bug tracking 
+  LARAVEL_SENTRY_DSN: "https://1abed5b3f95e41be8e1c39c33af12506@sentry.etd24.pl/96"
+  LARAVEL_SENTRY_TRACES_SAMPLE_RATE: "1"
+  SENTRYDSN: "https://1abed5b3f95e41be8e1c39c33af12506@sentry.etd24.pl/96"
+  YBUG_ID: "01m1nn5zqystt1qq5n11"
+  REACT_APP_YBUG: "01m1nn5zqystt1qq5n11"
+  REACT_APP_SENTRYDSN: "https://1abed5b3f95e41be8e1c39c33af12506@sentry.etd24.pl/96"
+

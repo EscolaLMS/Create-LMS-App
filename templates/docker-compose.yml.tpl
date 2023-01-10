@@ -24,12 +24,18 @@ services:
     image: escolalms/demo:latest
     environment:
       - API_URL=http://api.wellms.localhost
-
+      - SENTRYDSN=https://1abed5b3f95e41be8e1c39c33af12506@sentry.etd24.pl/96
+      - YBUG_ID=01m1nn5zqystt1qq5n11
+    networks:
+      - escola_lms
   admin:
     image: escolalms/admin:latest
     environment:
       - API_URL=http://api.wellms.localhost
-
+      - REACT_APP_YBUG=01m1nn5zqystt1qq5n11
+      - REACT_APP_SENTRYDSN=https://1abed5b3f95e41be8e1c39c33af12506@sentry.etd24.pl/96
+    networks:
+      - escola_lms
   api:
     user: $DOCKER_USER
     image: escolalms/api:latest
@@ -46,7 +52,8 @@ services:
     - DISBALE_NGINX=false
     - DISBALE_HORIZON=false
     - DISBALE_SCHEDULER=false
-
+    - LARAVEL_SENTRY_DSN=https://1abed5b3f95e41be8e1c39c33af12506@sentry.etd24.pl/96
+    - LARAVEL_SENTRY_TRACES_SAMPLE_RATE=1
   postgres:
     image: postgres:12
     networks:
