@@ -10,58 +10,58 @@ NAMESPACE ?= "escolalms"
 
 
 bash:
-	docker-compose exec -u 1000 api bash
+	docker compose exec -u 1000 api bash
 
 generate-credentials:	
 	bash ./scripts/credentials.sh
 
 dumpautoload: 
-	docker-compose exec -T -u 1000 api bash -c "composer dumpautoload"
+	docker compose exec -T -u 1000 api bash -c "composer dumpautoload"
 
 generate-new-keys-no-db:
-	docker-compose exec -T -u 1000 api bash -c "php artisan key:generate --force --no-interaction"
-	docker-compose exec -T -u 1000 api bash -c "php artisan passport:keys --force --no-interaction"
+	docker compose exec -T -u 1000 api bash -c "php artisan key:generate --force --no-interaction"
+	docker compose exec -T -u 1000 api bash -c "php artisan passport:keys --force --no-interaction"
 
 generate-new-keys-db:
-	docker-compose exec -T -u 1000 api bash -c "php artisan passport:client --personal --no-interaction"
+	docker compose exec -T -u 1000 api bash -c "php artisan passport:client --personal --no-interaction"
 
 migrate: 
-	docker-compose exec -T -u 1000 api bash -c "php artisan migrate --force --no-interaction"
+	docker compose exec -T -u 1000 api bash -c "php artisan migrate --force --no-interaction"
 
 permissions-seeder: 
-	docker-compose exec -T -u 1000 api bash -c "php artisan db:seed --class=PermissionsSeeder --force --no-interaction"
+	docker compose exec -T -u 1000 api bash -c "php artisan db:seed --class=PermissionsSeeder --force --no-interaction"
 
 content-seeder: 
-	- docker-compose exec -T -u 1000 api bash -c "php artisan db:seed --force --no-interaction"
+	- docker compose exec -T -u 1000 api bash -c "php artisan db:seed --force --no-interaction"
 
 content-rich-seeder: 
-	- docker-compose exec -T -u 1000 api bash -c "php artisan db:seed --class=FullDatabaseSeeder --force --no-interaction"
+	- docker compose exec -T -u 1000 api bash -c "php artisan db:seed --class=FullDatabaseSeeder --force --no-interaction"
 
 docker-up:
-	docker-compose up -d --remove-orphans	
+	docker compose up -d --remove-orphans	
 
 docker-up-force:
-	docker-compose up -d	--force-recreate
+	docker compose up -d	--force-recreate
 
 docker-down:	
-	docker-compose stop
+	docker compose stop
 
 docker-pull:	
-	docker-compose pull
+	docker compose pull
 
 docker-update: docker-pull docker-up-force dumpautoload storage-links
 
 restart: 
-	docker-compose stop && docker-compose up -d	
+	docker compose stop && docker compose up -d	
 
 h5p-seed:
-	- docker-compose exec -T -u 1000 api bash -c "php artisan db:seed --class=H5PLibrarySeeder --force --no-interaction"
-	- docker-compose exec -T -u 1000 api bash -c "php artisan db:seed --class=H5PContentSeeder --force --no-interaction"
-	- docker-compose exec -T -u 1000 api bash -c "php artisan db:seed --class=H5PContentCoursesSeeder --force --no-interaction"
+	- docker compose exec -T -u 1000 api bash -c "php artisan db:seed --class=H5PLibrarySeeder --force --no-interaction"
+	- docker compose exec -T -u 1000 api bash -c "php artisan db:seed --class=H5PContentSeeder --force --no-interaction"
+	- docker compose exec -T -u 1000 api bash -c "php artisan db:seed --class=H5PContentCoursesSeeder --force --no-interaction"
 
 storage-links:
-	- docker-compose exec -T -u 1000 api bash -c "php artisan storage:link --force --no-interaction"
-	- docker-compose exec -T -u 1000 api bash -c "php artisan h5p:storage-link"
+	- docker compose exec -T -u 1000 api bash -c "php artisan storage:link --force --no-interaction"
+	- docker compose exec -T -u 1000 api bash -c "php artisan h5p:storage-link"
 	
 # creates a backup file into `data` folder
 # TODO this should be called by user 1000 but there is an issue with volume 
@@ -79,7 +79,7 @@ import-postgres:
 
 flush-postgres: 
 	- rm -rf docker/postgres-data	
-	- docker-compose down
+	- docker compose down
 
 success: 
 	- @echo "Wellms is installed succesfully"

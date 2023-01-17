@@ -128,7 +128,7 @@ Below are instructions how to install Wellms from [https://hub.docker.com/search
 
 ### Requirements
 
-- you have `docker` & `docker-composer` installed
+- you have `docker` installed
 - port 80 is free
 
 ### Installation from script
