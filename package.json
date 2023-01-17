@@ -1,6 +1,6 @@
 {
   "name": "@escolalms/cla",
-  "version": "1.3.3",
+  "version": "1.4.0",
   "description": "Create LMS APP. Escola LMS. Wellms. ",
   "main": "index.js",
   "scripts": {
