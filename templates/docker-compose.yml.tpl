@@ -22,6 +22,7 @@ services:
 
   app:
     image: escolalms/demo:latest
+    platform: linux/amd64
     environment:
       - API_URL=http://api.wellms.localhost
       - SENTRYDSN=https://1abed5b3f95e41be8e1c39c33af12506@sentry.etd24.pl/96
@@ -30,6 +31,7 @@ services:
       - escola_lms
   admin:
     image: escolalms/admin:latest
+    platform: linux/amd64
     environment:
       - API_URL=http://api.wellms.localhost
       - REACT_APP_YBUG=01m1nn5zqystt1qq5n11
