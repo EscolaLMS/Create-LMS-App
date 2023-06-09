@@ -47,7 +47,7 @@ docker-down:
 	docker compose stop
 
 docker-pull:	
-	docker compose pull
+	docker compose pull --ignore-pull-failures
 
 docker-update: docker-pull docker-up-force dumpautoload storage-links
 
