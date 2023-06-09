@@ -55,7 +55,7 @@ services:
     - DISBALE_HORIZON=false
     - DISBALE_SCHEDULER=false
     - LARAVEL_SENTRY_DSN=https://1abed5b3f95e41be8e1c39c33af12506@sentry.etd24.pl/96
-    - LARAVEL_SENTRY_TRACES_SAMPLE_RATE=1
+    - LARAVEL_SENTRY_TRACES_SAMPLE_RATE=0.1
   postgres:
     image: postgres:12
     networks:
