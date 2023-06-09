@@ -1,6 +1,6 @@
 APP_NAME="${APP_NAME:-Wellms}"
 APP_ENV="${APP_ENV:-production}"
-APP_KEY=${APP_KEY:-base64:4eRGpWIIGunZD3AlUrgbeYc29+tC6l2Ky7EMJGO5tqY=}"
+APP_KEY="${APP_KEY:-base64:4eRGpWIIGunZD3AlUrgbeYc29+tC6l2Ky7EMJGO5tqY=}"
 APP_DEBUG="${APP_DEBUG:-false}"
 APP_LOG_LEVEL="${APP_LOG_LEVEL:-debug}"
 APP_URL="${APP_URL:-http://api.wellms.localhost}"
