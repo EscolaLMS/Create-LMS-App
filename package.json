@@ -1,10 +1,10 @@
 {
   "name": "@escolalms/cla",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Create LMS APP. Escola LMS. Wellms. ",
   "main": "index.js",
   "scripts": {
-    "bare":  "git clone https://github.com/EscolaLMS/Create-LMS-App.git EscolaLMS && cd EscolaLMS && rm -rf .git",
+    "bare": "git clone https://github.com/EscolaLMS/Create-LMS-App.git EscolaLMS && cd EscolaLMS && rm -rf .git",
     "init": "git clone https://github.com/EscolaLMS/Create-LMS-App.git EscolaLMS && cd EscolaLMS && rm -rf .git && ./init.sh",
     "k8s-init": "git clone https://github.com/EscolaLMS/Create-LMS-App.git EscolaLMS && cd EscolaLMS && rm -rf .git && ./init.sh"
   },
