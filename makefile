@@ -91,9 +91,9 @@ success:
 	- @echo "Emails are not sent. See $(MAILHOG_URL) mailhog for details"
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
 	
-init: generate-credentials docker-pull docker-up dumpautoload generate-new-keys-no-db migrate generate-new-keys-db permissions-seeder storage-links content-seeder restart success 
+init: generate-credentials docker-up dumpautoload generate-new-keys-no-db migrate generate-new-keys-db permissions-seeder storage-links content-seeder restart success 
 
-refresh: flush-postgres init
+refresh: flush-postgres docker-pull init
 
 # minikube
 
