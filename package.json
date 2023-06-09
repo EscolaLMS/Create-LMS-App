@@ -22,6 +22,7 @@
     "url": "https://github.com/EscolaLMS/Create-LMS-App/issues"
   },
   "bin": {
+    "pull": "scripts/pull.sh",
     "lms": "scripts/pull_init.sh",
     "k8s-init": "scripts/pull_init_k8s.sh",
     "k8s-yamls": "scripts/pull_init_k8s_generate.sh"
