@@ -95,6 +95,7 @@ services:
     networks:
       - escola_lms
     image: mailhog/mailhog
+    platform: linux/amd64
     logging:
       driver: "none" # disable saving logs
 
