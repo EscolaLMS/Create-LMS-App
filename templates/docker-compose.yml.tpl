@@ -25,7 +25,7 @@ services:
     platform: linux/amd64
     environment:
       - API_URL=http://api.wellms.localhost
-      - SENTRYDSN=https://1abed5b3f95e41be8e1c39c33af12506@sentry.etd24.pl/96
+      - SENTRYDSN=http://1abed5b3f95e41be8e1c39c33af12506@relay:3000/96
       - YBUG_ID=01m1nn5zqystt1qq5n11
     networks:
       - escola_lms
@@ -35,7 +35,7 @@ services:
     environment:
       - API_URL=http://api.wellms.localhost
       - REACT_APP_YBUG=01m1nn5zqystt1qq5n11
-      - REACT_APP_SENTRYDSN=https://1abed5b3f95e41be8e1c39c33af12506@sentry.etd24.pl/96
+      - REACT_APP_SENTRYDSN=http://1abed5b3f95e41be8e1c39c33af12506@relay:3000/96
     networks:
       - escola_lms
   api:
@@ -54,7 +54,7 @@ services:
     - DISBALE_NGINX=false
     - DISBALE_HORIZON=false
     - DISBALE_SCHEDULER=false
-    - LARAVEL_SENTRY_DSN=https://1abed5b3f95e41be8e1c39c33af12506@sentry.etd24.pl/96
+    - LARAVEL_SENTRY_DSN=http://1abed5b3f95e41be8e1c39c33af12506@relay:3000/96
     - LARAVEL_SENTRY_TRACES_SAMPLE_RATE=0.1
   postgres:
     image: postgres:12
@@ -103,4 +103,12 @@ services:
     networks:
       - escola_lms
     image: escolalms/reportbro-server:latest
+
+  relay:
+    image: getsentry/relay
+    volumes:
+      - ./config/relay/:/work/.relay/
+    networks:
+      - escola_lms
+
 

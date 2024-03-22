@@ -1,0 +1,12 @@
+# Please see the relevant documentation.
+# Performance tuning: https://docs.sentry.io/product/relay/operating-guidelines/
+# All config options: https://docs.sentry.io/product/relay/options/
+relay:
+  mode: static
+  upstream: https://sentry.etd24.pl/
+  # host: 0.0.0.0
+  # port: 3000
+  # tls_port: null
+  # tls_identity_path: null
+  # tls_identity_password: null
+

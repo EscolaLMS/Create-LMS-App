@@ -1,0 +1,12 @@
+{
+  "slug": "wellms-all",
+  "publicKeys": [
+    {
+      "publicKey": "1abed5b3f95e41be8e1c39c33af12506",
+      "isEnabled": true
+    }
+  ],
+  "config": {
+    "allowedDomains": ["*"]
+  }
+}
