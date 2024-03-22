@@ -1,5 +1,14 @@
 #!/bin/bash
 
+DIRECTORY="docker/postgres-data"
+
+if [ -d "$DIRECTORY" ]; then
+  echo "$DIRECTORY does exist. Exiting"
+  echo "To create new credentials run 'make refresh', but beware as this is destructive action"
+  echo "To restart run 'make restart'"
+  exit 1
+fi
+
 # generate random secure passwords
 DB_PASSWORD=$(openssl rand -hex 12);
 REDIS_PASSWORD=$(openssl rand -hex 12);

@@ -6,6 +6,7 @@ caddy/
 vendor
 .env
 *.yml
+!config/relay/config.yml
 .DS_Store
 Caddyfile
 
