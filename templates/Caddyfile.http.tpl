@@ -27,3 +27,11 @@ http://$MAILHOG_URL_DOMAIN  {
 http://$REPORTBRO_URL_DOMAIN  {
 	reverse_proxy reportbro:8000
 }
+
+http://$STORAGE_URL_DOMAIN {
+    reverse_proxy minio:9000
+}
+
+http://$MINIO_URL_DOMAIN {
+    reverse_proxy minio:9001
+}
