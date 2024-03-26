@@ -88,7 +88,7 @@ success:
 	- @echo "API REST $(APP_URL)/api/documentation"
 	- @echo "Credentials for admin are username: admin@escolalms.com password: secret"
 	- @echo "Credentials for student are username: student@escolalms.com password: secret"
-	- @echo "Emails are not sent. See $(MAILHOG_URL) mailhog for details"
+	- @echo "Emails are not sent, they are simulated. See $(MAILHOG_URL) mailhog for details"
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
 	
 init: generate-credentials docker-up dumpautoload generate-new-keys-no-db migrate generate-new-keys-db permissions-seeder storage-links content-seeder restart success 

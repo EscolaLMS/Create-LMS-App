@@ -12,6 +12,7 @@ fi
 # generate random secure passwords
 DB_PASSWORD=$(openssl rand -hex 12);
 REDIS_PASSWORD=$(openssl rand -hex 12);
+AWS_SECRET_ACCESS_KEY=$(openssl rand -hex 12);
 
 # generated 
 APP_URL="${APP_URL:-http://api.wellms.localhost}"  
