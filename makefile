@@ -25,14 +25,21 @@ generate-new-keys-no-db:
 generate-new-keys-db:
 	docker compose exec -T -u 1000 api bash -c "php artisan passport:client --personal --no-interaction"
 
+update-envs: 
+	docker compose exec -T -u 1000 api bash -c "php docker/envs/envs.php"
+
 migrate: 
+	docker compose exec -T -u 1000 api bash -c "cat .env | grep "REDIS""
 	docker compose exec -T -u 1000 api bash -c "php artisan migrate --force --no-interaction"
+
+wait: 
+	docker compose exec -T -u 1000 api bash -c "./wait.sh"
 
 permissions-seeder: 
 	docker compose exec -T -u 1000 api bash -c "php artisan db:seed --class=PermissionsSeeder --force --no-interaction"
 
 content-seeder: 
-	- docker compose exec -T -u 1000 api bash -c "php artisan db:seed --force --no-interaction"
+	- docker compose exec -T api bash -c "php artisan db:seed --force --no-interaction"
 
 content-rich-seeder: 
 	- docker compose exec -T -u 1000 api bash -c "php artisan db:seed --class=FullDatabaseSeeder --force --no-interaction"
@@ -49,7 +56,7 @@ docker-down:
 docker-pull:	
 	docker compose pull --ignore-pull-failures
 
-docker-update: docker-pull docker-up-force dumpautoload storage-links
+docker-update: docker-pull docker-up-force dumpautoload 
 
 restart: 
 	docker compose stop && docker compose up -d	
@@ -59,9 +66,7 @@ h5p-seed:
 	- docker compose exec -T -u 1000 api bash -c "php artisan db:seed --class=H5PContentSeeder --force --no-interaction"
 	- docker compose exec -T -u 1000 api bash -c "php artisan db:seed --class=H5PContentCoursesSeeder --force --no-interaction"
 
-storage-links:
-	- docker compose exec -T -u 1000 api bash -c "php artisan storage:link --force --no-interaction"
-	- docker compose exec -T -u 1000 api bash -c "php artisan h5p:storage-link"
+
 	
 # creates a backup file into `data` folder
 # TODO this should be called by user 1000 but there is an issue with volume 
@@ -91,7 +96,7 @@ success:
 	- @echo "Emails are not sent, they are simulated. See $(MAILHOG_URL) mailhog for details"
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
 	
-init: generate-credentials docker-up dumpautoload generate-new-keys-no-db migrate generate-new-keys-db permissions-seeder storage-links content-seeder restart success 
+init: generate-credentials docker-up wait content-seeder success 
 
 refresh: flush-postgres docker-pull init
 
