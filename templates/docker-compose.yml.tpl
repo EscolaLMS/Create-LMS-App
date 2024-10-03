@@ -5,7 +5,6 @@ networks:
     driver: bridge
 services:
   proxy:
-    user: $DOCKER_USER
     image: caddy
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
@@ -20,7 +19,6 @@ services:
   app:
     image: escolalms/demo:latest
     platform: linux/amd64
-    command: "chmod -R 0766 storage && /var/www/html/init.sh"
     environment:
       - API_URL=${APP_URL}
       - SENTRYDSN=${SENTRY_DSN}
@@ -37,11 +35,7 @@ services:
     networks:
       - escola_lms
   api:
-    user: $DOCKER_USER
-    ## this is temporary
-    image: escolalms/api:develop
-    ## this is temporary
-    platform: linux/amd64
+    image: escolalms/api:latest
     networks:
       - escola_lms
     depends_on:

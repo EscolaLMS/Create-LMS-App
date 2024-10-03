@@ -8,38 +8,17 @@ REPORTBRO_URL ?= "http://reportbro.wellms.localhost"
 
 NAMESPACE ?= "escolalms"
 
-
 bash:
 	docker compose exec -u 1000 api bash
 
 generate-credentials:	
 	bash ./scripts/credentials.sh
 
-dumpautoload: 
-	docker compose exec -T -u 1000 api bash -c "composer dumpautoload"
-
-generate-new-keys-no-db:
-	docker compose exec -T -u 1000 api bash -c "php artisan key:generate --force --no-interaction"
-	docker compose exec -T -u 1000 api bash -c "php artisan passport:keys --force --no-interaction"
-
-generate-new-keys-db:
-	docker compose exec -T -u 1000 api bash -c "php artisan passport:client --personal --no-interaction"
-
-update-envs: 
-	docker compose exec -T -u 1000 api bash -c "php docker/envs/envs.php"
-
-migrate: 
-	docker compose exec -T -u 1000 api bash -c "cat .env | grep "REDIS""
-	docker compose exec -T -u 1000 api bash -c "php artisan migrate --force --no-interaction"
-
 wait: 
 	docker compose exec -T -u 1000 api bash -c "./wait.sh"
 
-permissions-seeder: 
-	docker compose exec -T -u 1000 api bash -c "php artisan db:seed --class=PermissionsSeeder --force --no-interaction"
-
 content-seeder: 
-	- docker compose exec -T api bash -c "php artisan db:seed --force --no-interaction"
+	- docker compose exec -T -u 1000 api bash -c "php artisan db:seed --force --no-interaction"
 
 content-rich-seeder: 
 	- docker compose exec -T -u 1000 api bash -c "php artisan db:seed --class=FullDatabaseSeeder --force --no-interaction"
@@ -91,7 +70,7 @@ success:
 	- @echo "Admin panel $(ADMIN_URL)"
 	- @echo "Demo $(FRONT_URL)"
 	- @echo "API REST $(APP_URL)/api/documentation"
-	- @echo "Credentials for admin are username: admin@escolalms.com password: secret"
+	- @echo "Credentials for admin are username: admin2@escolalms.com password: secret"
 	- @echo "Credentials for student are username: student@escolalms.com password: secret"
 	- @echo "Emails are not sent, they are simulated. See $(MAILHOG_URL) mailhog for details"
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
