@@ -20,10 +20,10 @@ $APP_URL_DOMAIN  {
 	import cors $FRONT_URL
 }
 
-$MAILHOG_URL_DOMAIN  {
-	reverse_proxy mailhog:8025
+$STORAGE_URL_DOMAIN {
+    reverse_proxy minio:9000
 }
 
-$REPORTBRO_URL_DOMAIN  {
-	reverse_proxy reportbro:8000
+$MINIO_URL_DOMAIN {
+    reverse_proxy minio:9001
 }

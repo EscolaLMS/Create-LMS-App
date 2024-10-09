@@ -8,28 +8,14 @@ REPORTBRO_URL ?= "http://reportbro.wellms.localhost"
 
 NAMESPACE ?= "escolalms"
 
-
 bash:
 	docker compose exec -u 1000 api bash
 
 generate-credentials:	
 	bash ./scripts/credentials.sh
 
-dumpautoload: 
-	docker compose exec -T -u 1000 api bash -c "composer dumpautoload"
-
-generate-new-keys-no-db:
-	docker compose exec -T -u 1000 api bash -c "php artisan key:generate --force --no-interaction"
-	docker compose exec -T -u 1000 api bash -c "php artisan passport:keys --force --no-interaction"
-
-generate-new-keys-db:
-	docker compose exec -T -u 1000 api bash -c "php artisan passport:client --personal --no-interaction"
-
-migrate: 
-	docker compose exec -T -u 1000 api bash -c "php artisan migrate --force --no-interaction"
-
-permissions-seeder: 
-	docker compose exec -T -u 1000 api bash -c "php artisan db:seed --class=PermissionsSeeder --force --no-interaction"
+wait: 
+	docker compose exec -T -u 1000 api bash -c "./wait.sh"
 
 content-seeder: 
 	- docker compose exec -T -u 1000 api bash -c "php artisan db:seed --force --no-interaction"
@@ -49,7 +35,7 @@ docker-down:
 docker-pull:	
 	docker compose pull --ignore-pull-failures
 
-docker-update: docker-pull docker-up-force dumpautoload storage-links
+docker-update: docker-pull docker-up-force dumpautoload 
 
 restart: 
 	docker compose stop && docker compose up -d	
@@ -59,9 +45,7 @@ h5p-seed:
 	- docker compose exec -T -u 1000 api bash -c "php artisan db:seed --class=H5PContentSeeder --force --no-interaction"
 	- docker compose exec -T -u 1000 api bash -c "php artisan db:seed --class=H5PContentCoursesSeeder --force --no-interaction"
 
-storage-links:
-	- docker compose exec -T -u 1000 api bash -c "php artisan storage:link --force --no-interaction"
-	- docker compose exec -T -u 1000 api bash -c "php artisan h5p:storage-link"
+
 	
 # creates a backup file into `data` folder
 # TODO this should be called by user 1000 but there is an issue with volume 
@@ -86,12 +70,12 @@ success:
 	- @echo "Admin panel $(ADMIN_URL)"
 	- @echo "Demo $(FRONT_URL)"
 	- @echo "API REST $(APP_URL)/api/documentation"
-	- @echo "Credentials for admin are username: admin@escolalms.com password: secret"
+	- @echo "Credentials for admin are username: admin2@escolalms.com password: secret"
 	- @echo "Credentials for student are username: student@escolalms.com password: secret"
-	- @echo "Emails are not sent. See $(MAILHOG_URL) mailhog for details"
+	- @echo "Emails are not sent, they are simulated. See $(MAILHOG_URL) mailhog for details"
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
 	
-init: generate-credentials docker-up dumpautoload generate-new-keys-no-db migrate generate-new-keys-db storage-links content-seeder restart success 
+init: generate-credentials docker-up wait content-seeder success 
 
 refresh: flush-postgres docker-pull init
 
