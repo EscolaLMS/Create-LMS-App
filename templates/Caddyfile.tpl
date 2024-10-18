@@ -13,9 +13,13 @@ $FRONT_URL_DOMAIN {
 }
 
 $APP_URL_DOMAIN  {
-	php_fastcgi api:9000 {	
-		header_down -Access-Control-Allow-Origin	
-	}
+	reverse_proxy api:9000 {
+        header_up -Access-Control-Allow-Origin
+        header_down -Access-Control-Allow-Origin
+        transport fastcgi {
+            env SCRIPT_FILENAME /var/www/html/index.php
+        }        
+    }
 	import cors $ADMIN_URL
 	import cors $FRONT_URL
 }

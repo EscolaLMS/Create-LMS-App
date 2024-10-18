@@ -70,12 +70,16 @@ success:
 	- @echo "Admin panel $(ADMIN_URL)"
 	- @echo "Demo $(FRONT_URL)"
 	- @echo "API REST $(APP_URL)/api/documentation"
-	- @echo "Credentials for admin are username: admin2@escolalms.com password: secret"
-	- @echo "Credentials for student are username: student@escolalms.com password: secret"
+	- @echo "Credentials for admin are username: superadmin@escolalms.com password: secret"
+	- @echo "If you seeded the database credentials for student are username: student@escolalms.com password: secret"
 	- @echo "Emails are not sent, they are simulated. See $(MAILHOG_URL) mailhog for details"
 	- @echo "Run 'make bash' to lanuch bash mode, where you can use all 'artisan' commands"	
 	
-init: generate-credentials docker-up wait content-seeder success 
+init: generate-credentials docker-up wait ask-for-seed success 
+
+ask-for-seed: 
+	@echo Do you want to seed database with sample courses and other data now? [Y/n]
+	@read line; if [ $$line = "n" ]; then echo skipping db seeding; else make content-seeder; fi
 
 refresh: flush-postgres docker-pull init
 

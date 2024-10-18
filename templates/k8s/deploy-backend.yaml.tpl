@@ -21,9 +21,9 @@ spec:
         args: ["-c", "/docker-entrypoint.sh && /var/www/html/init.sh && php artisan db:seed --force --no-interaction && chown -R devilbox:devilbox /var/www/html && /usr/bin/supervisord -c /etc/supervisor/supervisord.conf"]
         imagePullPolicy: Always
         env:
-        - name: DISBALE_HORIZON
+        - name: DISABLE_HORIZON
           value: "true"
-        - name: DISBALE_SCHEDULER
+        - name: DISABLE_SCHEDULER
           value: "true"
         envFrom:
         - configMapRef:

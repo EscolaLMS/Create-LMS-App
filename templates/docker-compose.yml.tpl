@@ -45,11 +45,13 @@ services:
         condition: service_healthy
 
     environment:
-      - DISBALE_PHP_FPM=false
-      - DISBALE_NGINX=false
-      - DISBALE_HORIZON=false
-      - DISBALE_SCHEDULER=false
+      - DISABLE_PHP_FPM=false
+      - DISABLE_NGINX=false
+      - DISABLE_HORIZON=false
+      - DISABLE_SCHEDULER=false
       - LARAVEL_SENTRY_DSN=${SENTRY_DSN}
+      - LARAVEL_INITIAL_USER_EMAIL=superadmin@escolalms.com
+      - LARAVEL_INITIAL_USER_PASSWORD=secret
       - LARAVEL_SENTRY_TRACES_SAMPLE_RATE=0.1
       - LARAVEL_APP_NAME="${APP_NAME:-Wellms}"
       - LARAVEL_APP_ENV="${APP_ENV:-production}"
@@ -100,7 +102,7 @@ services:
       - LARAVEL_AWS_USE_PATH_STYLE_ENDPOINT="${AWS_USE_PATH_STYLE_ENDPOINT:-true}"
       - LARAVEL_YBUG_ID="${YBUG_ID:-01m1nn5zqystt1qq5n11}"
   postgres:
-    image: postgres:12
+    image: postgres:17 
     networks:
       - escola_lms
     healthcheck:

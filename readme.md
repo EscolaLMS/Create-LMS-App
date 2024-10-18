@@ -205,10 +205,10 @@ api:
     - ./storage:/var/www/html/storage
     - ./.env:/var/www/html/.env
   environment:
-    - DISBALE_PHP_FPM=false
-    - DISBALE_NGINX=false
-    - DISBALE_HORIZON=true
-    - DISBALE_SCHEDULER=true
+    - DISABLE_PHP_FPM=false
+    - DISABLE_NGINX=false
+    - DISABLE_HORIZON=true
+    - DISABLE_SCHEDULER=true
 
 horizon:
   image: escolalms/api:latest
@@ -218,10 +218,10 @@ horizon:
     - ./storage:/var/www/html/storage
     - ./.env:/var/www/html/.env
   environment:
-    - DISBALE_PHP_FPM=true
-    - DISBALE_NGINX=true
-    - DISBALE_HORIZON=false
-    - DISBALE_SCHEDULER=true
+    - DISABLE_PHP_FPM=true
+    - DISABLE_NGINX=true
+    - DISABLE_HORIZON=false
+    - DISABLE_SCHEDULER=true
 
 scheduler:
   image: escolalms/api:latest
@@ -231,8 +231,8 @@ scheduler:
     - ./storage:/var/www/html/storage
     - ./.env:/var/www/html/.env
   environment:
-    - DISBALE_PHP_FPM=true
-    - DISBALE_NGINX=true
-    - DISBALE_HORIZON=true
-    - DISBALE_SCHEDULER=false
+    - DISABLE_PHP_FPM=true
+    - DISABLE_NGINX=true
+    - DISABLE_HORIZON=true
+    - DISABLE_SCHEDULER=false
 ```
