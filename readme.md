@@ -165,9 +165,9 @@ The `source` means source code of this repository, not the actual Wellms compone
 Once everything is installed (takes a while)
 
 - http://api.wellms.localhost/api/documentation API Swagger documentation
-- http://admin.wellms.localhost admin panel credentials username: admin@escola-lms.com password: secret
-- http://app.wellms.localhost demo panel credentials username: student@escola-lms.com password: secret
-- http://mailhog.wellms.localhost demo panel credentials username: student@escola-lms.com password: secret
+- http://admin.wellms.localhost admin panel credentials username: admin2@escolalms.com password: secret
+- http://app.wellms.localhost demo panel credentials username: student@escolalms.com password: secret
+- http://mailhog.wellms.localhost demo panel credentials username: student@escolalms.com password: secret
 
 ## Troubleshooting
 
