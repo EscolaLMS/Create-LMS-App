@@ -13,7 +13,7 @@ $FRONT_URL_DOMAIN {
 }
 
 $APP_URL_DOMAIN  {
-	reverse_proxy api:80 {	
+	php_fastcgi api:9000 {	
 		header_down -Access-Control-Allow-Origin	
 	}
 	import cors $ADMIN_URL
