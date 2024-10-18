@@ -22,9 +22,9 @@ spec:
         args: ["-c", "/docker-entrypoint.sh && php /var/www/html/docker/envs/envs.php && chown -R devilbox:devilbox /var/www/html  &&  /usr/bin/supervisord -c /etc/supervisor/supervisord.conf"]
         imagePullPolicy: Always
         env:
-        - name: DISBALE_PHP_FPM
+        - name: DISABLE_PHP_FPM
           value: "true"
-        - name: DISBALE_NGINX
+        - name: DISABLE_NGINX
           value: "true"
         envFrom:
         - configMapRef:
